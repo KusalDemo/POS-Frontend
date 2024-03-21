@@ -9,32 +9,109 @@
           crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="../assets/images/posware_logo.png" alt="Bootstrap" width="150" height="24">
-        </a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="../index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="">Customer</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Store</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Orders</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Order Status</a>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../assets/images/posware_logo.png" alt="Bootstrap" width="150" height="24">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="">Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Order Status</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+    <section class="container">
+        <div id="formInfo">
+            <img src="../assets/icons/icons8-customers-100.png" id= "customerManageIcon" alt="Bootstrap" width="60" height="60">
+            <h2>Customer Manage</h2>
+        </div>
+        <div class="card mainDiv">
+            <div class="card-header">
+                Main / Customer Manage
+            </div>
+            <div class="card-body management-card">
+
+               <!-- Search Customer div-->
+                <div class="card searchCustomerCard">
+                    <div class="card-header" id="searchCustomerCardTitle">
+                        Search Customer
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Input Name/NIC or To here" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <span class="input-group-text" id="basic-addon2">search</span>
+                        </div>
+                        <div id="searchBtnDiv">
+                            <a href="#" class="btn btn-success">Search</a>&nbsp;&nbsp;
+                            <select class="form-select form-select-sm" id="cmbSearchBy" aria-label="Small select example">
+                                <option selected>Search By</option>
+                                <option value="1">Name</option>
+                                <option value="2">NIC</option>
+                                <option value="3">To</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!--Buttons for customer add and view-->
+                    <div id="crudBtn">
+                        <button type="button" class="btn btn-primary">Update</button>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-secondary">Clear</button>
+                    </div>
+                    <div class="btn-group saveViewBtns" role="group" aria-label="Basic mixed styles example">
+                        <button type="button" class="btn btn-success">New Customer</button>
+                        <button type="button" class="btn btn-warning">View All Customers</button>
+                    </div>
+               <!-- Table-->
+                <table class="table table-striped table-bordered">
+                    <thead>
+                    <tr class="table-info">
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Branch</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Kusal</td>
+                        <td>3A/1,Kandy</td>
+                        <td>Kandy</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Tharu</td>
+                        <td>45,Hakmana</td>
+                        <td>Matara</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td> <!--colspan="2"-->Saman</td>
+                        <td>35/B,Colombo3</td>
+                        <td>Colombo Main</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
