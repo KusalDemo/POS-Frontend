@@ -115,7 +115,7 @@
                                 <input type="text" class="form-control" id="orderQty" placeholder="Order Quantity">
                             </div>
                             <div class="mb-3">
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"  data-bs-target="#delete-user-modal">ADD Item</button>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"  data-bs-target="#add-item-modal">ADD Item</button>
                             </div>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
                                 <input type="text" class="form-control" id="balance" placeholder="Balance">
                             </div>
                             <div class="mb-3">
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal"  data-bs-target="#delete-user-modal">Place Order</button>
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"  data-bs-target="#place-order-modal">Place Order</button>
                             </div>
                         </div>
                     </div>
@@ -183,8 +183,55 @@
             </div>
         </div>
     </section>
-
-
+    <!--Add Item Modal-->
+    <div class="modal" tabindex="-1" id="add-item-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Confirme Your Action to Add Item</p>
+                    <p>Item Code : <span id="itemCodeSpan"></span></p>
+                    <p>Item Name : <span id="itemNameSpan"></span></p>
+                    <p>Item Price : <span id="itemPriceSpan"></span></p>
+                    <p>Item Quantity : <span id="itemQtySpan"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Add Item</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Place Order Modal-->
+    <div class="modal" tabindex="-1" id="place-order-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Confirm your Action to Place your Order</h6><br>
+                    <p>Customer Name : <span id="orderCustomerNameSpan"></span></p>
+                    <p>Item Code : <span id="orderItemCodeSpan"></span></p>
+                    <p>Item Name : <span id="orderItemNameSpan"></span></p>
+                    <p>Item Price : <span id="orderItemPriceSpan"></span></p>
+                    <p>Item Quantity : <span id="OrderItemQtySpan"></span></p><br>
+                    <p>Total Amount : <span id="totalAmountSpan"></span></p>
+                    <p>Cash Amount : <span id="cashAmountSpan"></span></p>
+                    <p>Discount Amount : <span id="discountAmountSpan"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <img src="../assets/images/posware_logo.png" alt="Bootstrap" width="150" height="24">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Add Item</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
