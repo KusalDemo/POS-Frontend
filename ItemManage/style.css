@@ -10,6 +10,10 @@
     width: 70%;
     height: 80%;
 }
+.logout-btn{
+    position: absolute;
+    right: 15px;
+}
 #formInfo{
     display: flex;
 }
@@ -58,4 +62,10 @@
 .saveModalCard{
     margin: 10px;
 }
-
+@media (max-width: 1000px) {
+    .btn-group.saveViewBtns {
+        left: 0;
+        top: 0;
+        margin-bottom: 10px;
+    }
+}

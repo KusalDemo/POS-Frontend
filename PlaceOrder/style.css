@@ -6,6 +6,10 @@
 
     margin: 10px;
 }
+.logout-btn{
+    position: absolute;
+    right: 15px;
+}
 #formInfo{
     display: flex;
 }

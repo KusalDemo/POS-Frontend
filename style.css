@@ -1,3 +1,24 @@
 nav{
     position: fixed;
 }
+#main-section{
+    padding: 70px;
+}
+.grid-container{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 10px;
+    width: 100%;
+    padding:0 20px;
+
+}
+.grid-container>div{
+    width: 100px;
+    aspect-ratio: 1/0.5;
+    background-color: #dfe6e9;
+}
+.grid-container>div:hover{
+    box-shadow: gray 0 0 2px;
+    background-color: #b2bec3;
+}
