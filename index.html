@@ -17,58 +17,26 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <span class="nav-link" id="nav-home">Home</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="CustomerManage/index.html">Customer</a>
+                        <span class="nav-link" id="nav-customer">Customer Mgt</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="ItemManage/index.html">Item</a>
+                        <span class="nav-link" id="nav-item">Items Mgt</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="PlaceOrder/index.html">Orders</a>
+                        <span class="nav-link" id="nav-order">Order Mgt</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="OrderDetails/index.html">Order Details</a>
+                        <span class="nav-link" id="nav-order-details">Order Details</span>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+    <!--Main Section-->
     <section id="main-section">
-        <!--Login credentials collector div-->
-       <!-- <div class="card login-card">
-            <img src="assets/images/supermarket-temp.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Lets Get Started</h5>
-                <p class="card-text">welcome to Posware. Lets login or register</p><br>
-                <form>
-                    <div class="mb-3">
-                        <label for="InputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp">
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="userName" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="userName">
-                    </div>
-                    <div class="mb-3">
-                        <label for="InputPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="InputPassword">
-                    </div>
-                    <div class="mb-3">
-                        <label for="InputRePassword" class="form-label">RePassword</label>
-                        <input type="password" class="form-control" id="InputRePassword">
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Already have an account</button>
-                </form>
-            </div>
-        </div-->
         <!-- Status of customers,items & Orders-->
         <div class="grid-container">
             <div>
@@ -93,11 +61,394 @@
                 </div>
             </div>
         </div>
-
-
     </section>
+<!--    CustomerManage Section-->
+    <section class="container" id="customer-section">
+        <div class="formInfo">
+            <img src="assets/icons/icons8-customers-100.png" id= "customerManageIcon" alt="Bootstrap" width="60" height="60">
+            <h2>Customer Manage</h2>
+        </div>
+        <div class="card mainDiv">
+            <div class="card-header">
+                Main / Customer Manage
+            </div>
+            <div class="card-body management-card">
+
+                <!-- Search Customer div-->
+                <div class="card searchCustomerCard">
+                    <div class="card-header" id="searchCustomerCardTitle">
+                        Search Customer
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Input Name/NIC or To here" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <span class="input-group-text">search</span>
+                        </div>
+                        <div class="searchBtnDiv">
+                            <a href="#" class="btn btn-success">Search</a>&nbsp;&nbsp;
+                            <select class="form-select form-select-sm" id="cmbSearchByCustomer" aria-label="Small select example">
+                                <option selected>Search By</option>
+                                <option value="1">Name</option>
+                                <option value="2">NIC</option>
+                                <option value="3">To</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!--Buttons for customer add and view-->
+                <div class="crudBtn">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#update-user-modal">Update</button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"  data-bs-target="#delete-user-modal">Delete</button>
+                    <button type="button" class="btn btn-secondary">Clear</button>
+                </div>
+                <div class="btn-group saveViewBtns" role="group" aria-label="Basic mixed styles example">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal"  data-bs-target="#save-user-modal">New Customer</button>
+                    <button type="button" class="btn btn-warning">View All Customers</button>
+                </div>
+                <!-- Table-->
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="table-info">
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Branch</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Kusal</td>
+                        <td>3A/1,Kandy</td>
+                        <td>Kandy</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Tharu</td>
+                        <td>45,Hakmana</td>
+                        <td>Matara</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td> <!--colspan="2"-->Saman</td>
+                        <td>35/B,Colombo3</td>
+                        <td>Colombo Main</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <!--Item Manage Section-->
+    <section class="container" id="item-section">
+        <div class="formInfo">
+            <img src="assets/icons/icons8-stock-64.png" id= "ItemManageIcon" alt="Bootstrap" width="60" height="60">
+            <h2>Item Manage</h2>
+        </div>
+        <div class="card mainDiv">
+            <div class="card-header">
+                Main / Item Manage
+            </div>
+            <div class="card-body management-card">
+
+                <!-- Search Item div-->
+                <div class="card searchItemCard">
+                    <div class="card-header" id="searchItemCardTitle">
+                        Search an Item
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Input Item Name/Code here" aria-label="Recipient's itemname" aria-describedby="basic-addon2">
+                            <span class="input-group-text" id="basic-addon2">search</span>
+                        </div>
+                        <div class="searchBtnDiv">
+                            <a href="#" class="btn btn-success">Search</a>&nbsp;&nbsp;
+                            <select class="form-select form-select-sm" id="cmbSearchByItem" aria-label="Small select example">
+                                <option selected>Search By</option>
+                                <option value="1">Name</option>
+                                <option value="2">Item Code</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!--Buttons for Item add and view-->
+                <div class="crudBtn">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#update-item-modal">Update</button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"  data-bs-target="#delete-item-modal">Delete</button>
+                    <button type="button" class="btn btn-secondary">Clear</button>
+                </div>
+                <div class="btn-group saveViewBtns" role="group" aria-label="Basic mixed styles example">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal"  data-bs-target="#save-item-modal">New Item</button>
+                    <button type="button" class="btn btn-warning">View All Items</button>
+                </div>
+                <!-- Table-->
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="table-info">
+                        <th scope="col">Item Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Qty</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">Rice</th>
+                        <td>Samba Rice</td>
+                        <td>240</td>
+                        <td>3000</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Rice</th>
+                        <td>Naadu</td>
+                        <td>300</td>
+                        <td>4500</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <!--PlaceOrder Section-->
+    <section id="place-order-section">
+        <div class="formInfo">
+            <img src="assets/icons/icons8-create-order-48.png" id= "placeOrderIcon" alt="Bootstrap" width="50" height="50">
+            <h2>Place Order</h2>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Home / Order
+            </div>
+            <div class="card-body">
+                <div class="grid-container-place-order">
+                    <!-- Invoice Details div-->
+                    <div class="card searchCustomerCard">
+                        <div class="card-header" id="searchInvoiceDetailsTitle">
+                            Invoice Details
+                        </div>
+                        <div class="card-body invoiceDetailsInputs">
+                            <div class="mb-3">
+                                <label for="orderID" class="form-label">Order ID</label>
+                                <input type="text" class="form-control" id="orderID" placeholder="Order ID">
+                            </div>
+                            <div class="mb-3">
+                                <label for="date" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="date" placeholder="Date">
+                            </div>
+                            <div class="mb-3">
+                                <label for="customerIdSelect" class="form-label">Customer ID</label>
+                                <input type="text" class="form-control" id="customerIdSelect" placeholder="Customer ID">
+                            </div>
+                            <div class="mb-3">
+                                <label for="customerId" class="form-label">Selected Customer</label>
+                                <input type="text" class="form-control" id="customerId" placeholder="Customer ID">
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Customer Name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" placeholder="Customer Address">
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--Item Details div-->
+                    <div class="card searchCustomerCard">
+                        <div class="card-header" id="placeOrderCardTitle">
+                            Invoice Details
+                        </div>
+                        <div class="card-body itemDetailsInputs">
+                            <div id="searchItemId">
+                                <label for="itemID" class="form-label">Item Code</label>
+                                <select class="form-select form-select-sm" id="itemID" aria-label="Small select example">
+                                    <option selected>Item IDs</option>
+                                    <option value="1">I001</option>
+                                    <option value="2">I002</option>
+                                    <option value="3">I003</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="itemCode" class="form-label">Item Code</label>
+                                <input type="text" class="form-control" id="itemCode" placeholder="Item Code">
+                            </div>
+                            <div class="mb-3">
+                                <label for="itemName" class="form-label">Item Name</label>
+                                <input type="text" class="form-control" id="itemName" placeholder="Item Name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="itemPrice" class="form-label">Price</label>
+                                <input type="text" class="form-control" id="itemPrice" placeholder="Item Unit Price">
+                            </div>
+                            <div class="mb-3">
+                                <label for="itemQty" class="form-label">Qty</label>
+                                <input type="text" class="form-control" id="itemQty" placeholder="Item Qty On Hand">
+                            </div>
+                            <div class="mb-3">
+                                <label for="orderQty" class="form-label">Order Quantity</label>
+                                <input type="text" class="form-control" id="orderQty" placeholder="Order Quantity">
+                            </div>
+                            <div class="mb-3">
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"  data-bs-target="#add-item-modal">ADD Item</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Order Price summery div-->
+                    <div class="card searchCustomerCard">
+                        <div class="card-header" id="OrderPriceCardTitle">
+                            Total Price
+                        </div>
+                        <div class="card-body orderSummery">
+                            <div id="totalPriceDiv">
+                                <h2>Total : </h2>
+                                <h2></h2>
+                            </div>
+                            <div id="subTotalPriceDiv">
+                                <h2>Sub Total : </h2>
+                                <h2></h2>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cash" class="form-label">Cash</label>
+                                <input type="text" class="form-control" id="cash" placeholder="Cash Amount">
+                            </div>
+                            <div class="mb-3">
+                                <label for="discount" class="form-label">Discount %</label>
+                                <input type="number" class="form-control" id="discount" placeholder="Discount Amount">
+                            </div>
+                            <div class="mb-3">
+                                <label for="balance" class="form-label">Balance</label>
+                                <input type="text" class="form-control" id="balance" placeholder="Balance">
+                            </div>
+                            <div class="mb-3">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"  data-bs-target="#place-order-modal">Place Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Order details table-->
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="table-info">
+                        <th scope="col">Item Code</th>
+                        <th scope="col">Item Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Rice</td>
+                        <td>4500</td>
+                        <td>10</td>
+                        <td>450</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Wheat</td>
+                        <td>4500</td>
+                        <td>10</td>
+                        <td>450</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <!--OrderDetails Section-->
+    <section class="container" id="order-details-section">
+        <div class="formInfo">
+            <img src="assets/icons/icons8-search-bar-50.png" id= "OrderDetailsIcon" alt="Bootstrap" width="60" height="60">
+            <h2>Order Details</h2>
+        </div>
+        <div class="card mainDiv">
+            <div class="card-header">
+                Main / Search Order
+            </div>
+            <div class="card-body management-card">
+                <!-- Search Item div-->
+                <div class="card searchOrderCard">
+                    <div class="card-header" id="searchOrderCardTitle">
+                        Get Details about the Order
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Input ID here" aria-label="Recipient's itemname" aria-describedby="basic-addon2">
+                            <span class="input-group-text">search</span>
+                        </div>
+                        <div id="searchBtnDiv">
+                            <a href="#" class="btn btn-success">Search</a>&nbsp;&nbsp;
+                            <select class="form-select form-select-sm" id="cmbSearchBy" aria-label="Small select example">
+                                <option selected>Search By</option>
+                                <option value="1">Order ID</option>
+                                <option value="2">Customer ID</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Table-->
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="table-info">
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Customer ID</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Discount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row"></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Selected Order Details</p>
+                <!-- Table-->
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="table-info">
+                        <th scope="col">Item Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row"></th>
+                        <td> </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <script src="assets/lib/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 </body>
 </html>
