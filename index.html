@@ -9,6 +9,7 @@
           crossorigin="anonymous">
 </head>
 <body>
+    <!--Navigation Bar-->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
@@ -62,7 +63,7 @@
             </div>
         </div>
     </section>
-<!--    CustomerManage Section-->
+    <!--CustomerManage Section-->
     <section class="container" id="customer-section">
         <div class="formInfo">
             <img src="assets/icons/icons8-customers-100.png" id= "customerManageIcon" alt="Bootstrap" width="60" height="60">
@@ -444,6 +445,287 @@
             </div>
         </div>
     </section>
+
+    <!--Modals-->
+    <!--Logout Modal-->
+    <div class="modal" tabindex="-1" id="logout-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Logout</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to logout ? Your unsaved changes will be lost.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger">Logout Anyway</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--modal for save customer-->
+    <div class="modal" tabindex="-1" id="save-user-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Customer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="card saveModalCard">
+                    <div class="card-header">
+                        customer manage / save
+                    </div>
+                    <div class="card-body save-user-card">
+                        <div class="mb-3 user-id">
+                            <label for="saveUserIdField" class="form-label">User ID</label>
+                            <input class="form-control" type="text" value="User Id" id="saveUserIdField" aria-label="readonly input example" readonly>
+                        </div>
+                        <div class="mb-3 username">
+                            <label for="saveUserNameField" class="form-label">User Name</label>
+                            <input type="text" class="form-control" id="saveUserNameField" placeholder="kusal Gunasekara">
+                        </div>
+                        <div class="mb-3 user-address">
+                            <label for="saveUserAddressField" class="form-label">Email address</label>
+                            <input type="text" class="form-control" id="saveUserAddressField" placeholder="3A/1,Kandy">
+                        </div>
+                        <div class="mb-3 user-address">
+                            <label for="saveUserBranchField" class="form-label">User Branch</label>
+                            <select class="form-select user-branch" id="saveUserBranchField" aria-label="Default select example">
+                                <option selected>Branches</option>
+                                <option value="1">Colombo Main</option>
+                                <option value="2">Kandy</option>
+                                <option value="3">Matara</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--modal for update customer-->
+    <div class="modal" tabindex="-1" id="update-user-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Customer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="card saveModalCard">
+                    <div class="card-header">
+                        customer manage / update
+                    </div>
+                    <div class="card-body save-user-card">
+                        <div class="mb-3 user-id">
+                            <label for="updateUserIdField" class="form-label">User ID</label>
+                            <input class="form-control" type="text" value="User Id" id="updateUserIdField" aria-label="readonly input example" readonly>
+                        </div>
+                        <div class="mb-3 username">
+                            <label for="updateUserNameField" class="form-label">User Name</label>
+                            <input type="text" class="form-control" id="updateUserNameField" placeholder="kusal Gunasekara">
+                        </div>
+                        <div class="mb-3 user-address">
+                            <label for="updateUserAddressField" class="form-label">Email address</label>
+                            <input type="text" class="form-control" id="updateUserAddressField" placeholder="3A/1,Kandy">
+                        </div>
+                        <div class="mb-3 user-address">
+                            <label for="updateUserBranchField" class="form-label">User Branch</label>
+                            <select class="form-select user-branch" id="updateUserBranchField" aria-label="Default select example">
+                                <option selected>Branches</option>
+                                <option value="1">Colombo Main</option>
+                                <option value="2">Kandy</option>
+                                <option value="3">Matara</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--modal for delete customer-->
+    <div class="modal" tabindex="-1" id="delete-user-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Customer</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3 user-id">
+                        <label for="deleteUserIdField" class="form-label">User ID</label>
+                        <input class="form-control" type="text" value="User Id" id="deleteUserIdField" aria-label="readonly input example" readonly><br>
+                        <p>Warning: Deleting this customer will result in data loss.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--modal for save Item-->
+    <div class="modal" tabindex="-1" id="save-item-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Save Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="card saveModalCard">
+                    <div class="card-header">
+                        Item manage / save
+                    </div>
+                    <div class="card-body save-item-card">
+                        <div class="mb-3 item-code">
+                            <label for="saveItemIdField" class="form-label">Item Code</label>
+                            <input class="form-control" type="text" value="Item Id" id="saveItemIdField" aria-label="readonly input example" readonly>
+                        </div>
+                        <div class="mb-3 itemname">
+                            <label for="saveItemNameField" class="form-label">Item Name</label>
+                            <input type="text" class="form-control" id="saveItemNameField" placeholder="Rice">
+                        </div>
+                        <div class="mb-3 itemDescription">
+                            <label for="saveItemDescriptionField" class="form-label">Email address</label>
+                            <input type="text" class="form-control" id="saveItemDescriptionField" placeholder="description">
+                        </div>
+                        <div class="mb-3 itemDescription">
+                            <label for="saveItemPriceField" class="form-label">Email address</label>
+                            <input type="text" class="form-control" id="saveItemPriceField" placeholder="Rs.xxx">
+                        </div>
+                        <div class="mb-3 itemDescription">
+                            <label for="saveItemQtyField" class="form-label">Email address</label>
+                            <input type="text" class="form-control" id="saveItemQtyField" placeholder="xxxx">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--modal for update Item-->
+    <div class="modal" tabindex="-1" id="update-item-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Customer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="card saveModalCard">
+                    <div class="card-header">
+                        Item manage / update
+                    </div>
+                    <div class="card-body save-item-card">
+                        <div class="mb-3 item-code">
+                            <label for="saveItemIdField" class="form-label">Item Code</label>
+                            <input class="form-control" type="text" value="Item Id" id="updateItemIdField" aria-label="readonly input example" readonly>
+                        </div>
+                        <div class="mb-3 itemname">
+                            <label for="updateItemNameField" class="form-label">Item Name</label>
+                            <input type="text" class="form-control" id="updateItemNameField" placeholder="Rice">
+                        </div>
+                        <div class="mb-3 itemDescription">
+                            <label for="updateItemDescriptionField" class="form-label">Email address</label>
+                            <input type="text" class="form-control" id="updateItemDescriptionField" placeholder="description">
+                        </div>
+                        <div class="mb-3 itemDescription">
+                            <label for="updateItemPriceField" class="form-label">Email address</label>
+                            <input type="text" class="form-control" id="updateItemPriceField" placeholder="Rs.xxx">
+                        </div>
+                        <div class="mb-3 itemDescription">
+                            <label for="updateItemQtyField" class="form-label">Email address</label>
+                            <input type="text" class="form-control" id="updateItemQtyField" placeholder="xxxx">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--modal for delete Item-->
+    <div class="modal" tabindex="-1" id="delete-item-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Item</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3 item-id">
+                        <label for="deleteItemIdField" class="form-label">Item ID</label>
+                        <input class="form-control" type="text" value="Item Id" id="deleteItemIdField" aria-label="readonly input example" readonly><br>
+                        <p>Warning: Deleting this Item will result in data loss.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Add Item Modal-->
+    <div class="modal" tabindex="-1" id="add-item-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Confirme Your Action to Add Item</h6><br>
+                    <p>Item Code : <span id="itemCodeSpan"></span></p>
+                    <p>Item Name : <span id="itemNameSpan"></span></p>
+                    <p>Item Price : <span id="itemPriceSpan"></span></p>
+                    <p>Item Quantity : <span id="itemQtySpan"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Add Item</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Place Order Modal-->
+    <div class="modal" tabindex="-1" id="place-order-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Place Your Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Confirm your Action to Place your Order</h6><br>
+                    <p>Customer Name : <span id="orderCustomerNameSpan"></span></p>
+                    <p>Item Code : <span id="orderItemCodeSpan"></span></p>
+                    <p>Item Name : <span id="orderItemNameSpan"></span></p>
+                    <p>Item Price : <span id="orderItemPriceSpan"></span></p>
+                    <p>Item Quantity : <span id="OrderItemQtySpan"></span></p><br>
+                    <p>Total Amount : <span id="totalAmountSpan"></span></p>
+                    <p>Cash Amount : <span id="cashAmountSpan"></span></p>
+                    <p>Discount Amount : <span id="discountAmountSpan"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <img src="assets/images/posware_logo.png" alt="Bootstrap" width="150" height="24">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Place order</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="assets/lib/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
