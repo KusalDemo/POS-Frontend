@@ -1,3 +1,13 @@
+
+function setLastActiveSection(sectionId) {
+    localStorage.setItem('lastActiveSection', sectionId);
+}
+function getLastActiveSection() {
+    return localStorage.getItem('lastActiveSection');
+}
+$("#main-section").css({
+    display:'none'
+})
 $('#item-section').css({
     display:'none'
 })
@@ -10,6 +20,14 @@ $('#place-order-section').css({
 $('#order-details-section').css({
     display:'none'
 })
+$(document).ready(function() {
+    const lastActiveSection = getLastActiveSection();
+    if (lastActiveSection) {
+        $(`#${lastActiveSection}`).css({
+            display:'block'
+    })
+}});
+
 $('#nav-home').on('click', ()=>{
     $('#main-section').css({
         display:'block'
@@ -18,6 +36,7 @@ $('#nav-home').on('click', ()=>{
         display:'none'
     })
     console.log('Main-Page')
+    setLastActiveSection('main-section');
 });
 $('#nav-customer').on('click', ()=>{
     $('#customer-section').css({
@@ -27,6 +46,7 @@ $('#nav-customer').on('click', ()=>{
         display:'none'
     })
     console.log('Customer-Page')
+    setLastActiveSection('customer-section');
 });
 $('#nav-item').on('click', ()=>{
     $('#item-section').css({
@@ -36,6 +56,7 @@ $('#nav-item').on('click', ()=>{
         display:'none'
     })
     console.log('Item-Page')
+    setLastActiveSection('item-section');
 });
 $('#nav-order').on('click', ()=> {
     $('#place-order-section').css({
@@ -45,6 +66,7 @@ $('#nav-order').on('click', ()=> {
         display: 'none'
     })
     console.log('Order-Page')
+    setLastActiveSection('place-order-section');
 });
 $('#nav-order-details').on('click', ()=>{
     $('#order-details-section').css({
@@ -54,4 +76,6 @@ $('#nav-order-details').on('click', ()=>{
         display:'none'
     })
     console.log('Order-Details-Page')
+    setLastActiveSection('order-details-section');
 })
+
