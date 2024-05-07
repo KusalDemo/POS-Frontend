@@ -1,7 +1,20 @@
-nav{
+header{
     position: fixed;
+    z-index: 100;
 }
-#main-section{
+.navbar{
+    width: 100vw;
+    box-shadow: 0px 10px 6px -3px rgba(0,0,0,0.1);
+}
+.collapse{
+    background-color: #e2e3e5;
+    z-index: 99;
+    border-radius: 15px;
+}
+.nav-item>span:hover{
+    color: black;
+}
+#main-section ,#login-section ,#signup-section{
     padding: 70px;
 }
 .grid-container{
@@ -68,7 +81,6 @@ nav{
 .saveModalCard{
     margin: 10px;
 }
-
 /*Customer Page Styles*/
 .searchCustomerCard{
     width: 60%;

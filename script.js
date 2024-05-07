@@ -5,6 +5,12 @@ function setLastActiveSection(sectionId) {
 function getLastActiveSection() {
     return localStorage.getItem('lastActiveSection');
 }
+$('#login-section').css({
+    display:'none'
+})
+$('#signup-section').css({
+    display:'none'
+})
 $("#main-section").css({
     display:'none'
 })
