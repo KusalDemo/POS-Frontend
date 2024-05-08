@@ -4,8 +4,14 @@ import {orderArr} from "../db/db.js";
 */
 
 
+import {orderArr} from "../db/db.js";
+import {OrderModel} from "../model/orderModel.js";
+
 let cartItemsArr=[];
 let totalPrice=0;
+let subTotalPrice=0;
+var discountPercentage=0;
+let balance=0;
 var customerArr = [
     { cusId: "1", cusName: "Customer 1" , cusEmail: "C2bYk@example.com", cusAddress: "Address 1", cusBranch: "Branch 1"},
     { cusId: "2", cusName: "Customer 2", cusEmail: "C2bYk@example.com", cusAddress: "Address 2", cusBranch: "Branch 2"},
@@ -130,4 +136,75 @@ function clearItemFields(){
     $('#itemQty').val("");
     $('#orderQty').val("");
 }
+$('#discount').on('click',()=>{
+    try{
+        var payingAmount = Number($('#customerPayingAmount').val());
+        discountPercentage = $('#discount').val();
+
+        if (payingAmount < totalPrice || isNaN(payingAmount)) {
+            alert("Invalid Amount, Check and Try Again");
+            return;
+        }
+        subTotalPrice=totalPrice/100*(100-discountPercentage);
+        balance = payingAmount-subTotalPrice;
+        $('#subTotalPrice').text("Sub Total : Rs."+subTotalPrice);
+        $('#balancePrice').text("Balance : Rs."+balance);
+    }catch (error){
+        console.log("Discounting Failed..",error)
+    }
+});
+$('#btnPlaceOrder').on('click',()=>{
+    if(cartItemsArr.length===0){
+        alert("Cart is Empty");
+        return;
+    }else if(!$('#customerPayingAmount').val()){
+        alert("Paying Amount cannot be empty");
+        return;
+    }
+
+    $('#place-order-modal').modal('show');
+    $('#orderCustomerNameSpan').text($('#selectedCustomerNamePlaceOrder').val());
+    $('#orderItemCountSpan').text(cartItemsArr.length);
+    $('#totalAmountSpan').text("Rs."+totalPrice);
+    $('#cashAmountSpan').text("Rs."+$('#customerPayingAmount').val());
+    var discountPercentage = $('#discount').val();
+    $('#discountPercentageSpan').text(discountPercentage+"%");
+    $('#balanceAmountSpan').text("Rs."+balance);
+    $('#subTotalAmountSpan').text("Rs."+subTotalPrice);
+});
+$('#btnConfirmPlaceOrder').on('click',()=>{
+    $('#place-order-modal').modal('hide');
+    try{
+        let newPlaceOrder = new OrderModel(generateId(),$('#selectedCustomerIdPlaceOrder').val(),getTodayDate(),totalPrice,discountPercentage,balance,subTotalPrice,cartItemsArr);
+        orderArr.push(newPlaceOrder)
+        console.log(orderArr)
+        if(newPlaceOrder){
+            setTimeout(() => {alert("Place Order Successfully..")},800);
+        }
+    }catch (error){
+        console.log("Placing Order Failed..",error)
+    }
+});
+function generateId() {
+    var now = new Date();
+    var dd = String(now.getDate()).padStart(2, '0');
+    var mm = String(now.getMonth() + 1).padStart(2, '0');
+    var yy = now.getFullYear();
+    var hh = String(now.getHours()).padStart(2, '0');
+    var min = String(now.getMinutes()).padStart(2, '0');
+    var ss = String(now.getSeconds()).padStart(2, '0');
+    var ms = String(now.getMilliseconds()).padStart(3, '0');
+
+    var id = "O" + dd + mm + ms + hh + yy + ss + min;
+    return id;
+}
+function getTodayDate() {
+    var now = new Date();
+    var dd = String(now.getDate()).padStart(2, '0');
+    var mm = String(now.getMonth() + 1).padStart(2, '0');
+    var yy = now.getFullYear();
+    return yy + '-' + mm + '-' + dd;
+}
+
+
 

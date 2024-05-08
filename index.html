@@ -348,22 +348,21 @@
                                 <h2 id="totalPrice">Total : </h2>
                             </div>
                             <div id="subTotalPriceDiv">
-                                <h2>Sub Total : </h2>
+                                <h2 id="subTotalPrice">Sub Total : </h2>
+                            </div>
+                            <div id="balanceAmountDiv">
+                                <h2 id="balancePrice">Balance : </h2>
                             </div>
                             <div class="mb-3">
-                                <label for="cash" class="form-label">Cash</label>
-                                <input type="text" class="form-control" id="cash" placeholder="Cash Amount">
+                                <label for="customerPayingAmount" class="form-label">Cash</label>
+                                <input type="text" class="form-control" id="customerPayingAmount" placeholder="Cash Amount">
                             </div>
                             <div class="mb-3">
                                 <label for="discount" class="form-label">Discount %</label>
                                 <input type="number" class="form-control" id="discount" placeholder="Discount Amount">
                             </div>
                             <div class="mb-3">
-                                <label for="balance" class="form-label">Balance</label>
-                                <input type="text" class="form-control" id="balance" placeholder="Balance">
-                            </div>
-                            <div class="mb-3">
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal"  data-bs-target="#place-order-modal">Place Order</button>
+                                <button type="button" class="btn btn-success" id="btnPlaceOrder">Place Order</button>
                             </div>
                         </div>
                     </div>
@@ -751,18 +750,16 @@
                 <div class="modal-body">
                     <h6>Confirm your Action to Place your Order</h6><br>
                     <p>Customer Name : <span id="orderCustomerNameSpan"></span></p>
-                    <p>Item Code : <span id="orderItemCodeSpan"></span></p>
-                    <p>Item Name : <span id="orderItemNameSpan"></span></p>
-                    <p>Item Price : <span id="orderItemPriceSpan"></span></p>
-                    <p>Item Quantity : <span id="OrderItemQtySpan"></span></p><br>
+                    <p>Item Count : <span id="orderItemCountSpan"></span></p>&nbsp;&nbsp;
                     <p>Total Amount : <span id="totalAmountSpan"></span></p>
                     <p>Cash Amount : <span id="cashAmountSpan"></span></p>
-                    <p>Discount Amount : <span id="discountAmountSpan"></span></p>
+                    <p>Discount Amount : <span id="discountPercentageSpan"></span></p>
+                    <p>Balance : <span id="balanceAmountSpan"></span></p>
                 </div>
                 <div class="modal-footer">
                     <img src="assets/images/posware_logo.png" alt="Bootstrap" width="150" height="24">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Place order</button>
+                    <button type="button" class="btn btn-primary" id="btnConfirmPlaceOrder">Place order</button>
                 </div>
             </div>
         </div>
