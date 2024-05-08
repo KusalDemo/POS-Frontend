@@ -212,30 +212,32 @@
                             <input type="text" class="form-control" placeholder="Input Item Name/Code here" aria-label="Recipient's itemname" aria-describedby="basic-addon2">
                             <span class="input-group-text" id="basic-addon2">search</span>
                         </div>
-                        <div class="searchBtnDiv">
-                            <a href="#" class="btn btn-success">Search</a>&nbsp;&nbsp;
+                        <div class="searchBtnDiv">&nbsp;&nbsp;
                             <select class="form-select form-select-sm" id="cmbSearchByItem" aria-label="Small select example">
-                                <option selected>Search By</option>
-                                <option value="1">Name</option>
+                                <option selected value="1">Search By Name (default)</option>
                                 <option value="2">Item Code</option>
                             </select>
+                            <div class="searchButtons">
+                                <a href="#" class="btn btn-success" id="btnSearchItem">Search</a>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-secondary" id="btnClearItemFields">Clear</button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!--Buttons for Item add and view-->
                 <div class="crudBtn">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#update-item-modal">Update</button>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"  data-bs-target="#delete-item-modal">Delete</button>
-                    <button type="button" class="btn btn-secondary">Clear</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#update-item-modal" id="btnUpdateItem">Update</button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"  data-bs-target="#delete-item-modal" id="btnDeleteItem">Delete</button>
                 </div>
                 <div class="btn-group saveViewBtns" role="group" aria-label="Basic mixed styles example">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal"  data-bs-target="#save-item-modal">New Item</button>
-                    <button type="button" class="btn btn-warning">View All Items</button>
+                    <button type="button" class="btn btn-warning" id="btnViewAllItems">View All Items</button>
                 </div>
                 <!-- Table-->
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr class="table-info">
+                        <th scope="col">Item Code</th>
                         <th scope="col">Item Name</th>
                         <th scope="col">Description</th>
                         <th scope="col">Price</th>
@@ -243,18 +245,6 @@
                     </tr>
                     </thead>
                     <tbody id="item-tbl-tbody">
-                    <tr>
-                        <th scope="row">Rice</th>
-                        <td>Samba Rice</td>
-                        <td>240</td>
-                        <td>3000</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Rice</th>
-                        <td>Naadu</td>
-                        <td>300</td>
-                        <td>4500</td>
-                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -648,8 +638,9 @@
                     </div>
                     <div class="card-body save-item-card">
                         <div class="mb-3 item-code">
-                            <label for="saveItemIdField" class="form-label">Item Code</label>
-                            <input class="form-control" type="text" value="Item Id" id="saveItemIdField" aria-label="readonly input example" readonly>
+                            <label for="saveItemCodeField" class="form-label">Item Code</label>
+                            <input class="form-control" type="text" id="saveItemCodeField" placeholder="Item Code">
+                            <!--<input class="form-control" type="text" value="Item Id" id="saveItemCodeField" aria-label="readonly input example" readonly>-->
                         </div>
                         <div class="mb-3 itemname">
                             <label for="saveItemNameField" class="form-label">Item Name</label>
@@ -671,7 +662,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary" id="btnSaveItemModal">Save changes</button>
                 </div>
             </div>
         </div>
@@ -690,8 +681,8 @@
                     </div>
                     <div class="card-body save-item-card">
                         <div class="mb-3 item-code">
-                            <label for="saveItemIdField" class="form-label">Item Code</label>
-                            <input class="form-control" type="text" value="Item Id" id="updateItemIdField" aria-label="readonly input example" readonly>
+                            <label for="updateItemCodeField" class="form-label">Item Code</label>
+                            <input class="form-control" type="text" value="Item Id" id="updateItemCodeField" aria-label="readonly input example" readonly>
                         </div>
                         <div class="mb-3 itemname">
                             <label for="updateItemNameField" class="form-label">Item Name</label>
@@ -712,8 +703,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnCloseUpdateItemModal">Close</button>
+                    <button type="button" class="btn btn-danger" id="btnDeleteItemModal">Delete Item</button>
+                    <button type="submit" class="btn btn-primary" id="btnUpdateItemModal">Update Item</button>
                 </div>
             </div>
         </div>
@@ -734,7 +726,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmDeleteItem">Delete</button>
                 </div>
             </div>
         </div>
@@ -795,5 +787,6 @@
         crossorigin="anonymous"></script>
     <script src="script.js"></script>
 <script type="module" src="controller/customerController.js"></script>
+    <script type="module" src="controller/itemController.js"></script>
 </body>
 </html>
