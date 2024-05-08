@@ -156,7 +156,9 @@ header{
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 10px;
 }
-
+#customerIdSelectorDiv,#searchItemId,#order-qty-div label{
+    color: red;
+}
 .invoiceDetailsInputs>div {
     margin-bottom: 15px;
 }

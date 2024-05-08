@@ -276,21 +276,28 @@
                                 <label for="date" class="form-label">Date</label>
                                 <input type="date" class="form-control" id="date" placeholder="Date">
                             </div>
-                            <div class="mb-3">
+                            <!--<div class="mb-3">
                                 <label for="customerIdSelect" class="form-label">Customer ID</label>
                                 <input type="text" class="form-control" id="customerIdSelect" placeholder="Customer ID">
+                            </div>-->
+                            <div id="customerIdSelectorDiv">
+                                <label for="customerIdSelector" class="form-label">Customer ID *</label>
+                                <select class="form-select form-select-sm" id="customerIdSelector" aria-label="Small select example">
+                                    <option selected>Item IDs</option>
+                                    <option value="1">1</option>
+                                </select>
                             </div>
                             <div class="mb-3">
-                                <label for="customerId" class="form-label">Selected Customer</label>
-                                <input type="text" class="form-control" id="customerId" placeholder="Customer ID">
+                                <label for="selectedCustomerIdPlaceOrder" class="form-label">Selected Customer</label>
+                                <input type="text" class="form-control" id="selectedCustomerIdPlaceOrder" placeholder="Customer ID">
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Customer Name">
+                                <label for="selectedCustomerNamePlaceOrder" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="selectedCustomerNamePlaceOrder" placeholder="Customer Name">
                             </div>
                             <div class="mb-3">
-                                <label for="address" class="form-label">Address</label>
-                                <input type="text" class="form-control" id="address" placeholder="Customer Address">
+                                <label for="selectedCustomerAddressPlaceOrder" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="selectedCustomerAddressPlaceOrder" placeholder="Customer Address">
                             </div>
 
                         </div>
@@ -302,12 +309,8 @@
                         </div>
                         <div class="card-body itemDetailsInputs">
                             <div id="searchItemId">
-                                <label for="itemID" class="form-label">Item Code</label>
-                                <select class="form-select form-select-sm" id="itemID" aria-label="Small select example">
-                                    <option selected>Item IDs</option>
-                                    <option value="1">I001</option>
-                                    <option value="2">I002</option>
-                                    <option value="3">I003</option>
+                                <label for="itemIdSelector" class="form-label">Item Code *</label>
+                                <select class="form-select form-select-sm" id="itemIdSelector" aria-label="Small select example">
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -326,12 +329,12 @@
                                 <label for="itemQty" class="form-label">Qty</label>
                                 <input type="text" class="form-control" id="itemQty" placeholder="Item Qty On Hand">
                             </div>
-                            <div class="mb-3">
-                                <label for="orderQty" class="form-label">Order Quantity</label>
+                            <div class="mb-3" id="order-qty-div">
+                                <label for="orderQty" class="form-label">Order Quantity *</label>
                                 <input type="text" class="form-control" id="orderQty" placeholder="Order Quantity">
                             </div>
                             <div class="mb-3">
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"  data-bs-target="#add-item-modal">ADD Item</button>
+                                <button type="button" class="btn btn-danger" id="btnAddToCart">Add to cart</button>
                             </div>
                         </div>
                     </div>
@@ -342,12 +345,10 @@
                         </div>
                         <div class="card-body orderSummery">
                             <div id="totalPriceDiv">
-                                <h2>Total : </h2>
-                                <h2></h2>
+                                <h2 id="totalPrice">Total : </h2>
                             </div>
                             <div id="subTotalPriceDiv">
                                 <h2>Sub Total : </h2>
-                                <h2></h2>
                             </div>
                             <div class="mb-3">
                                 <label for="cash" class="form-label">Cash</label>
@@ -379,20 +380,6 @@
                     </tr>
                     </thead>
                     <tbody id="order-tbl-tbody">
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Rice</td>
-                        <td>4500</td>
-                        <td>10</td>
-                        <td>450</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Wheat</td>
-                        <td>4500</td>
-                        <td>10</td>
-                        <td>450</td>
-                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -788,5 +775,6 @@
     <script src="script.js"></script>
 <script type="module" src="controller/customerController.js"></script>
     <script type="module" src="controller/itemController.js"></script>
+    <script type="module" src="controller/placeOrderController.js"></script>
 </body>
 </html>
