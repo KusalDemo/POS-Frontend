@@ -170,7 +170,7 @@
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"  data-bs-target="#delete-user-modal" id="btnDeleteCustomer">Delete</button>
                 </div>
                 <div class="btn-group saveViewBtns" role="group" aria-label="Basic mixed styles example">
-                    <button type="button" class="btn btn-success"  data-bs-toggle="modal"  data-bs-target="#save-user-modal">New Customer</button>
+                    <button type="button" class="btn btn-success"  data-bs-toggle="modal"  data-bs-target="#save-user-modal" id="btnNewCustomer">New Customer</button>
                     <button type="button" class="btn btn-warning" id="btnViewAllCustomers">View All Customers</button>
                 </div>
                 <!-- Table-->
@@ -519,10 +519,10 @@
                     </div>
                     <form>
                         <div class="card-body save-user-card">
-                            <div class="mb-3 user-id">
+                            <!--<div class="mb-3 user-id">
                                 <label for="saveUserIdField" class="form-label">User ID</label>
-                                <input class="form-control" type="text" placeholder="User Id" id="saveUserIdField">
-                            </div>
+                                <input class="form-control" type="text" placeholder="User Id" id="saveUserIdField" aria-label="readonly input example" readonly>
+                            </div>-->
                             <div class="mb-3 user-name">
                                 <label for="saveUserNameField" class="form-label">User Name</label>
                                 <input type="text" class="form-control" id="saveUserNameField" placeholder="kusal Gunasekara">

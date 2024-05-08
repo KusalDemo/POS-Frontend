@@ -5,6 +5,8 @@ import {customerArr, searchedCustomersArr} from "../db/db.js";
 $(document).ready()
 
 var selectedCusIndex;
+var emailRegex=/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+var userNameRegex=/^[0-9A-Za-z]{6,16}$/;
 function loadTableData(){
     $('#customer-tbl-tbody').empty();
     customerArr.map((customer, index) => {
@@ -32,23 +34,29 @@ function loadSearchedCustomersToTable(){
         $('#customer-tbl-tbody').append(searchedCustomer);
     });
 }
+/*$('#btnNewCustomer').on('click', () => {
+    $('#saveUserIdField').text(generateId());
+})*/
 $('#btnSaveCustomer').on('click', () => {
     console.log("Save Customer Clicked");
-
-    let cusId = $('#saveUserIdField').val();
     let cusName = $('#saveUserNameField').val();
     let cusEmail = $('#saveUserEmailField').val();
     let cusAddress = $('#saveUserAddressField').val();
     let cusBranch = $('#saveUserBranchField').val();
 
-    if (!cusId ||!cusName ||!cusEmail ||!cusAddress ||!cusBranch) {
+    if (!cusName ||!cusEmail ||!cusAddress ||!cusBranch) {
         alert('Please fill in all fields.');
         return;
+    }else if(!userNameRegex.test(cusName)){
+        alert("Invalid Name , Username must be 6-16 & only letters and numbers");
+        return;
+    }else if(!emailRegex.test(cusEmail)){
+        alert("Invalid Email");
+        return;
     }
-
-    let newCustomer = new CustomerModel(cusId, cusName, cusEmail, cusAddress, cusBranch);
+    let newCustomer = new CustomerModel(String(generateId()), cusName, cusEmail, cusAddress, cusBranch);
     customerArr.push(newCustomer);
-
+    console.log(customerArr)
     console.log("New Customer Added :",newCustomer.cusName);
     loadTableData();
 
@@ -128,3 +136,16 @@ $('#btnClearCustomerFields').on('click', () => {
     $('#searchCustomerReference').val("");
     $('#btnViewAllCustomers').click();
 });
+function generateId() {
+    var now = new Date();
+    var dd = String(now.getDate()).padStart(2, '0');
+    var mm = String(now.getMonth() + 1).padStart(2, '0');
+    var yy = now.getFullYear();
+    var hh = String(now.getHours()).padStart(2, '0');
+    var min = String(now.getMinutes()).padStart(2, '0');
+    var ss = String(now.getSeconds()).padStart(2, '0');
+    var ms = String(now.getMilliseconds()).padStart(3, '0');
+
+    var id = "C" + dd + mm + ms + hh + yy + ss + min;
+    return id;
+}

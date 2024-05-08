@@ -40,6 +40,9 @@ $('#btnSaveItemModal').on('click', ()=> {
     if(!newItemCode || !newItemName || !newItemDescription || !newItemPrice || !newItemQty){
         alert('Please fill in all fields.');
         return;
+    }else if(isNaN(newItemPrice) || isNaN(newItemQty)){
+        alert("Invalid Price or Quantity");
+        return;
     }
      let newItemToSave = new ItemModel(newItemCode, newItemName, newItemDescription, newItemPrice, newItemQty);
     itemArr.push(newItemToSave);
