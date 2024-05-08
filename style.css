@@ -57,6 +57,11 @@ header{
 
     width: 100%;
     height: 100%;
+
+    border-radius: 52px;
+    background: #e0e0e0;
+    box-shadow:  8px 8px 29px #c5c5c5,
+    -8px -8px 29px #fbfbfb;
 }
 .formInfo{
     display: flex;
@@ -68,10 +73,6 @@ header{
 .formInfo>img{
     margin-left: 5px;
 }
-.crudBtn{
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
 .saveViewBtns{
     position: absolute;
     top: -235px;
@@ -80,6 +81,9 @@ header{
 }
 .saveModalCard{
     margin: 10px;
+}
+.searchButtons{
+    margin-top: 10px;
 }
 /*Customer Page Styles*/
 .searchCustomerCard{
@@ -96,6 +100,9 @@ header{
 #searchBtnDiv>select{
     width: 200px;
 }
+#btnUpdateCustomer ,#btnDeleteCustomer{
+    visibility: hidden;
+}
 #saveViewBtns{
     position: relative;
 }
@@ -105,6 +112,9 @@ header{
         left: 0;
         top: 0;
         margin-bottom: 10px;
+    }
+    .searchCustomerCard{
+        width: 90%;
     }
 }
 /*Item Page Styles*/
