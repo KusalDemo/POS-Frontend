@@ -3,8 +3,7 @@ import {customerArr} from "../db/db.js";
 import {orderArr} from "../db/db.js";
 */
 
-
-import {orderArr} from "../db/db.js";
+import {orderArr,customerArr,itemArr} from "../db/db.js";
 import {OrderModel} from "../model/orderModel.js";
 
 let cartItemsArr=[];
@@ -12,30 +11,36 @@ let totalPrice=0;
 let subTotalPrice=0;
 var discountPercentage=0;
 let balance=0;
-var customerArr = [
-    { cusId: "1", cusName: "Customer 1" , cusEmail: "C2bYk@example.com", cusAddress: "Address 1", cusBranch: "Branch 1"},
-    { cusId: "2", cusName: "Customer 2", cusEmail: "C2bYk@example.com", cusAddress: "Address 2", cusBranch: "Branch 2"},
-    // Add more customers as needed
-];
-var itemArr = [
+
+// var customerArr = [
+//     { cusId: "1", cusName: "Customer 1" , cusEmail: "C2bYk@example.com", cusAddress: "Address 1", cusBranch: "Branch 1"},
+//     { cusId: "2", cusName: "Customer 2", cusEmail: "C2bYk@example.com", cusAddress: "Address 2", cusBranch: "Branch 2"},
+//     // Add more customers as needed
+// ];
+/*var itemArr = [
     { itemId: "1", itemName: "Item 1",description: "Description 1", itemPrice: 10,qtyOnHand: 100},
     { itemId: "2", itemName: "Item 2",description: "Description 2", itemPrice: 20,qtyOnHand: 200},
-]
-$(document).ready(function() {
-    function loadCustomers() {
-        $('#customerIdSelector').empty();
-        $.each(customerArr, function(index, customer) {
-            $('#customerIdSelector').append('<option value="' + customer.cusId + '">' + customer.cusName + '</option>');
-        });
-    }
-    function loadItems() {
-        $('#itemIdSelector').empty();
-        $.each(itemArr, function(index, item) {
-            $('#itemIdSelector').append('<option value="' + item.itemId + '">' + item.itemName + '</option>');
-        });
-    }
+]*/
+$('#customerIdSelector').on('click', function() {
     loadCustomers();
+})
+$('#itemIdSelector').on('click', function() {
     loadItems();
+})
+function loadCustomers() {
+    $('#customerIdSelector').empty();
+    $.each(customerArr, function(index, customer) {
+        $('#customerIdSelector').append('<option value="' + customer.cusId + '">' + customer.cusName + '</option>');
+    });
+}
+function loadItems() {
+    $('#itemIdSelector').empty();
+    $.each(itemArr, function(index, item) {
+        $('#itemIdSelector').append('<option value="' + item.itemId + '">' + item.itemName + '</option>');
+    });
+}
+
+
     function updateCustomerInfo() {
         console.log("Update Customer Info Called");
         var selectedCustomerId = $('#customerIdSelector').val();
@@ -74,7 +79,6 @@ $(document).ready(function() {
 
     $('#customerIdSelector').change(updateCustomerInfo);
     $('#itemIdSelector').change(updateItemInfo);
-});
 
 function loadCartItems() {
     $('#order-tbl-tbody').empty();

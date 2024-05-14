@@ -1,8 +1,6 @@
 import {ItemModel} from "../model/itemModel.js";
 import {itemArr, searchedItemsArr} from "../db/db.js";
 
-
-
 var selectedItemIndex;
 function loadTableData(){
     $('#item-tbl-tbody').empty();

@@ -43,7 +43,6 @@
             </div>
         </nav>
     </header>
-
     <!--Login Section-->
     <section id="login-section">
         <div class="card login-card">
@@ -112,19 +111,19 @@
             <div class="card w-75 mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Total Customers</h5><br>
-                    <h1>___</h1>
+                    <h1 id="total-customers">___</h1>
                 </div>
             </div>
             <div class="card w-75 mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">Total Items</h5><br>
-                    <h1>___</h1>
+                    <h5 class="card-title" >Total Items</h5><br>
+                    <h1 id="total-items">___</h1>
                 </div>
             </div>
             <div class="card w-75 mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Total Orders</h5><br>
-                    <h1>___</h1>
+                    <h1 id="total-orders">___</h1>
                 </div>
             </div>
         </div>
@@ -402,16 +401,16 @@
                     </div>
                     <div class="card-body">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Input ID here" aria-label="Recipient's itemname" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control" placeholder="Input ID here" aria-label="Recipient's itemname" aria-describedby="basic-addon2" id="searchOrderReference">
                             <span class="input-group-text">search</span>
                         </div>
                         <div id="searchBtnDiv">
-                            <a href="#" class="btn btn-success">Search</a>&nbsp;&nbsp;
-                            <select class="form-select form-select-sm" id="cmbSearchBy" aria-label="Small select example">
-                                <option selected>Search By</option>
-                                <option value="1">Order ID</option>
+                            <select class="form-select form-select-sm" id="cmbOrderSearchBy" aria-label="Small select example">
+                                <option selected value="1">Order ID</option>
                                 <option value="2">Customer ID</option>
                             </select>
+                            <a href="#" class="btn btn-success" id="btnSearchOrderReference">Search</a>&nbsp;&nbsp;
+                            <a href="#" class="btn btn-secondary" id="btnClearOrderReference">Clear</a>&nbsp;&nbsp;
                         </div>
                     </div>
                 </div>
@@ -423,22 +422,12 @@
                         <th scope="col">Customer ID</th>
                         <th scope="col">Date</th>
                         <th scope="col">Total</th>
+                        <th scope="col">Paid</th>
                         <th scope="col">Discount</th>
+                        <th scope="col">Balance</th>
                     </tr>
                     </thead>
                     <tbody id="order-details-tbl-tbody">
-                    <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
                     </tbody>
                 </table>
                 <p>Selected Order Details</p>
@@ -446,26 +435,14 @@
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr class="table-info">
+                        <th scope="col">Item ID</th>
                         <th scope="col">Item Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">Item Price</th>
                         <th scope="col">Qty</th>
                         <th scope="col">Total</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row"></th>
-                        <td> </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    <tbody id="order-details-items-tbl-tbody">
                     </tbody>
                 </table>
             </div>
@@ -770,8 +747,10 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <script src="script.js"></script>
+    <script type="module" src="controller/homeController.js"></script>
 <script type="module" src="controller/customerController.js"></script>
     <script type="module" src="controller/itemController.js"></script>
     <script type="module" src="controller/placeOrderController.js"></script>
+    <script type="module" src="controller/orderDetailsController.js"></script>
 </body>
 </html>
