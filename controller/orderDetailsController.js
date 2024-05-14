@@ -79,8 +79,17 @@ $('#btnSearchOrderReference').on('click', () => {
 })
 $('#order-details-tbl-tbody').on('click', 'tr', function () {
     let index = $(this).index();
-    let selectedOrderId = $(this).find("#order-id-tbl").text();
-    loadSelectedOrderDetailsToTable(selectedOrderId);
+    $('#order-details-items-tbl-tbody').empty();
+    orderArr[index].itemsArr.forEach(function (item){
+        var searchedItem = `<tr>
+            <td id="item-code-tbl">${item.itemId}</td>
+            <td id="item-name-tbl">${item.itemName}</td>
+            <td id="item-description-tbl">${item.itemPrice}</td>
+            <td id="item-price-tbl">${item.itemPrice}</td>
+            <td id="item-qty-tbl">${item.total}</td>
+        </tr>`;
+        $('#order-details-items-tbl-tbody').append(searchedItem);
+    })
 })
 $('#btnClearOrderReference').on('click', () => {
     searchedOrdersArr.splice(0, searchedOrdersArr.length);
