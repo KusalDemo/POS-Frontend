@@ -1,7 +1,6 @@
-import {itemArr, orderArr} from "../db/db.js";
+import{orderArr} from "../db/db.js";
 
 let searchedOrdersArr=[];
-let indexOfSelectedOrder;
 
 function loadSearchedOrdersToTable(){
     $('#order-details-tbody').empty();
@@ -22,6 +21,11 @@ function loadSelectedOrderDetailsToTable(indexOfSelectedOrder){
     var selectedOrder=[];
     selectedOrder = orderArr[indexOfSelectedOrder];
     if (!selectedOrder) {
+        Swal.fire({
+            title: "OOPS!",
+            text: "There is no order found at this index",
+            icon: "info"
+        });
         console.error(`Order not found at index: ${indexOfSelectedOrder}`);
         return;
     }
@@ -73,7 +77,11 @@ $('#btnSearchOrderReference').on('click', () => {
         console.log(searchedOrdersArr);
 
     }catch (error) {
-        alert("No Order Found");
+        Swal.fire({
+            title: "OOPS!",
+            text: "There is no order found at this index",
+            icon: "warning"
+        });
         console.log(error);
     }
 })

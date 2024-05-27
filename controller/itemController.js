@@ -29,6 +29,7 @@ function loadSearchedItemsToTable(){
     });
 }
 $('#btnSaveItemModal').on('click', ()=> {
+    $('#saveItemCodeField').val(generateId());
     let newItemCode = $('#saveItemCodeField').val();
     let newItemName = $('#saveItemNameField').val();
     let newItemDescription = $('#saveItemDescriptionField').val();
@@ -36,10 +37,18 @@ $('#btnSaveItemModal').on('click', ()=> {
     let newItemQty = $('#saveItemQtyField').val();
 
     if(!newItemCode || !newItemName || !newItemDescription || !newItemPrice || !newItemQty){
-        alert('Please fill in all fields.');
+        Swal.fire({
+            title: "OOPS..!",
+            text: "Please fill in all fields.",
+            icon: "warning"
+        });
         return;
     }else if(isNaN(newItemPrice) || isNaN(newItemQty)){
-        alert("Invalid Price or Quantity");
+        Swal.fire({
+            title: "OOPS..!",
+            text: "Invalid Price or Quantity",
+            icon: "warning"
+        });
         return;
     }
      let newItemToSave = new ItemModel(newItemCode, newItemName, newItemDescription, newItemPrice, newItemQty);
@@ -48,7 +57,11 @@ $('#btnSaveItemModal').on('click', ()=> {
     console.log(itemArr)
     $('#save-item-modal').modal('hide');
     loadTableData();
-    setTimeout(() => {alert("Item Added Successfully")},800);
+    Swal.fire({
+        title: "Successfully Saved!",
+        text: "new Item \""+newItemCode+"\" added to the stock..",
+        icon: "success"
+    });
 });
 $('#item-tbl-tbody').on('click', 'tr', function () {
     let index = $(this).index();
@@ -75,14 +88,22 @@ $('#btnUpdateItemModal').on('click', ()=> {
     let updatedItemQty = $('#updateItemQtyField').val();
 
     if(!updatedItemCode || !updatedItemName || !updatedItemDescription || !updatedItemPrice || !updatedItemQty){
-        alert('Please fill in all fields.');
+        Swal.fire({
+            title: "OOPS..!",
+            text: "Please fill in all fields.",
+            icon: "warning"
+        });
         return;
     }
     itemArr[selectedItemIndex] = new ItemModel(updatedItemCode, updatedItemName, updatedItemDescription, updatedItemPrice, updatedItemQty);
 
     $('#update-item-modal').modal('hide');
     loadTableData();
-    setTimeout(() => {alert("Item Updated Successfully")},800);
+    Swal.fire({
+        title: "Successfully Updated!",
+        text: " \""+updatedItemCode+"\" Updated...",
+        icon: "success"
+    });
 });
 $('#btnDeleteItemModal').on('click', ()=> {
     $('#update-item-modal').modal('hide');
@@ -93,7 +114,11 @@ $('#btnConfirmDeleteItem').on('click', ()=> {
     itemArr.splice(selectedItemIndex, 1);
     $('#delete-item-modal').modal('hide');
     loadTableData();
-    setTimeout(() => {alert("Item Deleted Successfully")},800);
+    Swal.fire({
+        title: "Successfully Deleted!",
+        text: "Selected item has been deleted...",
+        icon: "success"
+    });
 });
 $('#btnSearchItem').on('click', () => {
     console.log("Search Item Clicked");
@@ -119,3 +144,14 @@ $('#btnSearchItem').on('click', () => {
 $('#btnViewAllItems').on('click', () => {
     loadTableData();
 })
+function generateId() {
+    var now = new Date();
+    var dd = String(now.getDate()).padStart(2, '0');
+    var mm = String(now.getMonth() + 1).padStart(2, '0');
+    var yy = now.getFullYear();
+    var ss = String(now.getSeconds()).padStart(2, '0');
+    var ms = String(now.getMilliseconds()).padStart(3, '0');
+
+    var id = "I" + dd + mm + ms + yy + ss ;
+    return id;
+}

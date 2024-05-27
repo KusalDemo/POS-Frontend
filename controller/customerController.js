@@ -1,12 +1,10 @@
 import {CustomerModel} from "../model/customerModel.js";
 import {customerArr, searchedCustomersArr} from "../db/db.js";
 
-
-$(document).ready()
-
 var selectedCusIndex;
 var emailRegex=/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 var userNameRegex=/^[0-9A-Za-z]{6,16}$/;
+var completedFieldCount=0;
 function loadTableData(){
     $('#customer-tbl-tbody').empty();
     customerArr.map((customer, index) => {
@@ -34,9 +32,6 @@ function loadSearchedCustomersToTable(){
         $('#customer-tbl-tbody').append(searchedCustomer);
     });
 }
-/*$('#btnNewCustomer').on('click', () => {
-    $('#saveUserIdField').text(generateId());
-})*/
 $('#btnSaveCustomer').on('click', () => {
     console.log("Save Customer Clicked");
     let cusName = $('#saveUserNameField').val();
@@ -45,13 +40,25 @@ $('#btnSaveCustomer').on('click', () => {
     let cusBranch = $('#saveUserBranchField').val();
 
     if (!cusName ||!cusEmail ||!cusAddress ||!cusBranch) {
-        alert('Please fill in all fields.');
+        Swal.fire({
+            title: "OOPS..!",
+            text: " Please fill in all fields.",
+            icon: "warning"
+        });
         return;
     }else if(!userNameRegex.test(cusName)){
-        alert("Invalid Name , Username must be 6-16 & only letters and numbers");
+        Swal.fire({
+            title: "OOPS..!",
+            text: "Invalid Name , Username must be 6-16 & only letters and numbers",
+            icon: "warning"
+        });
         return;
     }else if(!emailRegex.test(cusEmail)){
-        alert("Invalid Email");
+        Swal.fire({
+            title: "OOPS..!",
+            text: "Invalid Email",
+            icon: "warning"
+        });
         return;
     }
     let newCustomer = new CustomerModel(String(generateId()), cusName, cusEmail, cusAddress, cusBranch);
@@ -59,7 +66,11 @@ $('#btnSaveCustomer').on('click', () => {
     console.log(customerArr)
     console.log("New Customer Added :",newCustomer.cusName);
     loadTableData();
-
+    Swal.fire({
+        title: "Done",
+        text: "new Customer \""+newCustomer.cusName+"\" has joined the store..",
+        icon: "success"
+    });
 });
 $('#btnSearchCustomer').on('click', () => {
     console.log("Search Customer Clicked");
@@ -82,7 +93,11 @@ $('#btnSearchCustomer').on('click', () => {
         console.log(searchedCustomersArr);
         loadSearchedCustomersToTable()
     }catch (error) {
-        alert("No Customer Found");
+        Swal.fire({
+            title: "OOPS",
+            text: "No Customer Found",
+            icon: "error"
+        });
     }
 });
 $('#customer-tbl-tbody').on('click', 'tr', function () {
@@ -117,7 +132,11 @@ $('#btnUpdateCustomerModal').on('click', () => {
 
     loadTableData();
     $('#btnCloseUpdateCustomerModal').click();
-    setTimeout(() => {alert("Customer Updated Successfully")},800);
+    Swal.fire({
+        title: "Customer Updated Successfully",
+        text: " \""+selectedCusId+"\" Updated...",
+        icon: "success"
+    });
 })
 $('#btnDeleteCustomerModal').on('click', () => {
     $('#btnDeleteCustomer').click();
@@ -127,7 +146,11 @@ $('#btnConfirmDeleteCustomer').on('click', () => {
     customerArr.splice(selectedCusIndex, 1);
     $('#cancelDeleteCustomer').click();
     loadTableData();
-    setTimeout(() => {alert("Customer Deleted Successfully")},800);
+    Swal.fire({
+        title: "Customer Deleted Successfully",
+        text: "Selected Customer has been deleted...",
+        icon: "success"
+    });
 })
 $('#btnViewAllCustomers').on('click', () => {
     loadTableData();
@@ -148,4 +171,8 @@ function generateId() {
 
     var id = "C" + dd + mm + ms + hh + yy + ss + min;
     return id;
+}
+let modalInputProgress =()=>{
+    if(!$('#updateUserNameField').val()){
+    }
 }

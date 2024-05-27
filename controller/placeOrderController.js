@@ -1,8 +1,3 @@
-/*
-import {customerArr} from "../db/db.js";
-import {orderArr} from "../db/db.js";
-*/
-
 import {orderArr,customerArr,itemArr} from "../db/db.js";
 import {OrderModel} from "../model/orderModel.js";
 
@@ -12,15 +7,10 @@ let subTotalPrice=0;
 var discountPercentage=0;
 let balance=0;
 
-// var customerArr = [
-//     { cusId: "1", cusName: "Customer 1" , cusEmail: "C2bYk@example.com", cusAddress: "Address 1", cusBranch: "Branch 1"},
-//     { cusId: "2", cusName: "Customer 2", cusEmail: "C2bYk@example.com", cusAddress: "Address 2", cusBranch: "Branch 2"},
-//     // Add more customers as needed
-// ];
-/*var itemArr = [
-    { itemId: "1", itemName: "Item 1",description: "Description 1", itemPrice: 10,qtyOnHand: 100},
-    { itemId: "2", itemName: "Item 2",description: "Description 2", itemPrice: 20,qtyOnHand: 200},
-]*/
+function initialize() {
+    loadCustomers();
+    loadItems();
+}
 $('#customerIdSelector').on('click', function() {
     loadCustomers();
 })
@@ -39,10 +29,7 @@ function loadItems() {
         $('#itemIdSelector').append('<option value="' + item.itemId + '">' + item.itemName + '</option>');
     });
 }
-
-
     function updateCustomerInfo() {
-        console.log("Update Customer Info Called");
         var selectedCustomerId = $('#customerIdSelector').val();
         var selectedCustomer=null;
         try{
@@ -61,7 +48,6 @@ function loadItems() {
         }
     }
     function updateItemInfo() {
-        console.log("Update Item Info Called");
         var selectedItemId = $('#itemIdSelector').val();
         var selectedItem=null;
         try{
@@ -89,28 +75,58 @@ function loadCartItems() {
             <td id="item-price-tbl">${item.itemPrice}</td>
             <td id="order-qty-tbl">${item.orderQty}</td>
             <td id="total-tbl">${item.total}</td>
+            <td>
+                <button class="btn btn-danger cart-remove" data-id="${item.itemId}">Remove</button>
+               <!-- <button class="btn btn-secondary reduce-amount" data-bs-toggle="modal"  data-bs-target="#order-items-modal">Reduce Qty</button>-->
+            </td>
         </tr>`;
         $('#order-tbl-tbody').append(row);
     });
 }
+$('tbody').on('click', '.cart-remove', function() {
+    var itemId = $(this).data('id');
+    let removingRequestedItem = cartItemsArr.find(s=>s.itemId===itemId);
+    if(removingRequestedItem){
+        let currentItemQty = parseInt(itemArr.find(s=>s.itemId===itemId).qtyOnHand);
+        let updatedItemQty = currentItemQty+parseInt(removingRequestedItem.orderQty);
+        itemArr.find(s=>s.itemId===itemId).qtyOnHand=updatedItemQty;
+        totalPrice-=removingRequestedItem.total;
+        $('#totalPrice').text("Total : Rs."+totalPrice);
+    }
+    cartItemsArr.find(s=>s.itemId===itemId).total=0;
+    cartItemsArr = cartItemsArr.filter(s => s.itemId !== itemId);
+    loadCartItems();
+    clearItemFields();
+})
 $('#btnAddToCart').on('click',(e)=>{
     if(!$('#orderQty').val()||$('#orderQty').val()===0){
-        alert("Order Quantity cannot be 0");
+        Swal.fire({
+            title: "OOPS!",
+            text: "Order Quantity cannot be 0",
+            icon: "warning"
+        });
         return;
     }else if(!$('#itemCode').val()){
-        alert("Item Code cannot be empty");
+        Swal.fire({
+            title: "OOPS!",
+            text: "Item Code cannot be empty",
+            icon: "warning"
+        });
         return;
     }else if($('#itemQty').val()<$('#orderQty').val()){
-        alert("Order Quantity cannot be greater than Item Quantity");
+        Swal.fire({
+            title: "OOPS!",
+            text: "Order Quantity cannot be greater than Item Quantity",
+            icon: "warning"
+        });
         return;
     }
     let totalForCurrentItem=($('#itemPrice').val()*$('#orderQty').val());
     try{
         if(cartItemsArr.find(s => s.itemId === $('#itemCode').val())) {
             let indexOfItem = cartItemsArr.findIndex(s => s.itemId === $('#itemCode').val());
-            cartItemsArr[indexOfItem].orderQty+=parseInt($('#orderQty').val());
+            cartItemsArr[indexOfItem].orderQty=parseInt($('#orderQty').val())+parseInt(cartItemsArr[indexOfItem].orderQty);
             cartItemsArr[indexOfItem].total+=totalForCurrentItem;
-            clearItemFields();
             loadCartItems();
         }else{
             cartItemsArr.push({
@@ -126,6 +142,11 @@ $('#btnAddToCart').on('click',(e)=>{
         indexOfItem.qtyOnHand-=parseInt($('#orderQty').val());
         clearItemFields();
     }catch (error){
+        Swal.fire({
+            title: "Something went wrong",
+            text: "Adding Item Failed..",
+            icon: "error"
+        });
         console.log("Adding Item Failed..",error)
     }
     console.log(cartItemsArr);
@@ -140,13 +161,31 @@ function clearItemFields(){
     $('#itemQty').val("");
     $('#orderQty').val("");
 }
+function clearAllFields(){
+    $('#customerIdSelector').val("")
+    $('#selectedCustomerIdPlaceOrder').val("")
+    $('#selectedCustomerNamePlaceOrder').val("")
+    $('#selectedCustomerAddressPlaceOrder').val("")
+    $('#itemIdSelector').val("");
+    $('#itemCode').val("");
+    $('#itemName').val("");
+    $('#itemPrice').val("");
+    $('#itemQty').val("");
+    $('#customerPayingAmount').val("");
+    $('#discount').val("");
+}
 $('#discount').on('click',()=>{
     try{
         var payingAmount = Number($('#customerPayingAmount').val());
         discountPercentage = $('#discount').val();
 
         if (payingAmount < totalPrice || isNaN(payingAmount)) {
-            alert("Invalid Amount, Check and Try Again");
+            Swal.fire({
+                title: "OOPS.!",
+                text: "Invalid Amount, Check and Try Again",
+                icon: "warning"
+            });
+            /*alert("Invalid Amount, Check and Try Again");*/
             return;
         }
         subTotalPrice=totalPrice/100*(100-discountPercentage);
@@ -154,15 +193,28 @@ $('#discount').on('click',()=>{
         $('#subTotalPrice').text("Sub Total : Rs."+subTotalPrice);
         $('#balancePrice').text("Balance : Rs."+balance);
     }catch (error){
+        Swal.fire({
+            title: "Something went wrong",
+            text: "Discounting Failed..",
+            icon: "error"
+        });
         console.log("Discounting Failed..",error)
     }
 });
 $('#btnPlaceOrder').on('click',()=>{
     if(cartItemsArr.length===0){
-        alert("Cart is Empty");
+        Swal.fire({
+            title: "OOPS.!",
+            text: "Cart is Empty,Couldn't Place Order",
+            icon: "warning"
+        });
         return;
     }else if(!$('#customerPayingAmount').val()){
-        alert("Paying Amount cannot be empty");
+        Swal.fire({
+            title: "OOPS.!",
+            text: "Paying Amount cannot be empty",
+            icon: "warning"
+        });
         return;
     }
 
@@ -171,7 +223,7 @@ $('#btnPlaceOrder').on('click',()=>{
     $('#orderItemCountSpan').text(cartItemsArr.length);
     $('#totalAmountSpan').text("Rs."+totalPrice);
     $('#cashAmountSpan').text("Rs."+$('#customerPayingAmount').val());
-    var discountPercentage = $('#discount').val();
+    var discountPercentage =Math.min(100,Math.max(0,parseInt($('#discount').val())))
     $('#discountPercentageSpan').text(discountPercentage+"%");
     $('#balanceAmountSpan').text("Rs."+balance);
     $('#subTotalAmountSpan').text("Rs."+subTotalPrice);
@@ -179,13 +231,25 @@ $('#btnPlaceOrder').on('click',()=>{
 $('#btnConfirmPlaceOrder').on('click',()=>{
     $('#place-order-modal').modal('hide');
     try{
-        let newPlaceOrder = new OrderModel(generateId(),$('#selectedCustomerIdPlaceOrder').val(),getTodayDate(),totalPrice,discountPercentage,balance,subTotalPrice,cartItemsArr);
+        let newOrderId = generateId();
+        let newPlaceOrder = new OrderModel(newOrderId,$('#selectedCustomerIdPlaceOrder').val(),getTodayDate(),totalPrice,discountPercentage,balance,subTotalPrice,cartItemsArr);
         orderArr.push(newPlaceOrder)
         console.log(orderArr)
         if(newPlaceOrder){
-            setTimeout(() => {alert("Place Order Successfully..")},800);
+            Swal.fire({
+                title: "Place Order Successful..",
+                text: "Order confirmed.. Order Id : \""+newOrderId+"\" ",
+                icon: "success"
+            });
+            clearAllFields();
+            initialize();
         }
     }catch (error){
+        Swal.fire({
+            title: "Place Order Failed..",
+            text: "Couldn't Place Order due to an error",
+            icon: "error"
+        });
         console.log("Placing Order Failed..",error)
     }
 });
@@ -209,6 +273,13 @@ function getTodayDate() {
     var yy = now.getFullYear();
     return yy + '-' + mm + '-' + dd;
 }
-
+/*function showNotification(heading,body) {
+    $('#notification-header').text(heading)
+    $('#notification-details').text(body)
+    $('#notification').show();
+    setTimeout(function() {
+        $('#notification').fadeOut();
+    }, 5000);
+}*/
 
 
