@@ -73,6 +73,23 @@ $('#btnSearchOrderReference').on('click', () => {
                     $('#order-details-tbl-tbody').append(searchedOrder);
                 }
             })
+        }else if(selectedSearchingType==="3"){
+            $('#order-details-tbl-tbody').empty();
+            $('#order-details-items-tbl-tbody').empty();
+            $.each(orderArr,function (index, order) {
+                if(order.orderDate === searchText){
+                    var searchedOrder = `<tr>
+                        <td id="order-id-tbl">${order.orderId}</td>
+                        <td id="order-cus-id-tbl">${order.customerId}</td>
+                        <td id="order-date-tbl">${order.orderDate}</td>
+                        <td id="order-total-amount-tbl">${order.orderTotal}</td>
+                        <td id="order-cash-amount-tbl">${order.paidAmount}</td>
+                        <td id="order-discount-amount-tbl">${order.discount}</td>
+                        <td id="order-balance-amount-tbl">${order.balance}</td>
+                    </tr>`;
+                    $('#order-details-tbl-tbody').append(searchedOrder);
+                }
+            })
         }
         console.log(searchedOrdersArr);
 
@@ -105,3 +122,12 @@ $('#btnClearOrderReference').on('click', () => {
     loadSelectedOrderDetailsToTable.empty();
     $('#searchOrderReference').val("");
 })
+
+$('#cmbOrderSearchBy').change(function() {
+    var selectedOption = $(this).val();
+    if (selectedOption == "3") {
+        $('#searchOrderReference').attr('type', 'date');
+    } else {
+        $('#searchOrderReference').attr('type', 'text');
+    }
+});

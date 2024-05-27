@@ -156,8 +156,8 @@
                     </div>
                     <div class="card-body">
                         <div class="input-group mb-3">
+                            <span class="input-group-text"> 🔍 </span>
                             <input type="text" id="searchCustomerReference" class="form-control" placeholder="Let's search.." aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <span class="input-group-text" >search</span>
                         </div>
                         <div class="searchBtnDiv">
                             <select class="form-select form-select-sm" id="cmbSearchByCustomer" aria-label="Small select example">
@@ -217,8 +217,8 @@
                     </div>
                     <div class="card-body">
                         <div class="input-group mb-3">
+                            <span class="input-group-text"> 🔍 </span>
                             <input type="text" class="form-control" placeholder="Input Item Name/Code here" aria-label="Recipient's itemname" aria-describedby="basic-addon2">
-                            <span class="input-group-text" id="basic-addon2">search</span>
                         </div>
                         <div class="searchBtnDiv">&nbsp;&nbsp;
                             <select class="form-select form-select-sm" id="cmbSearchByItem" aria-label="Small select example">
@@ -273,7 +273,7 @@
                     <!-- Invoice Details div-->
                     <div class="card">
                         <div class="card-header" id="searchInvoiceDetailsTitle">
-                            Select who's making the order
+                            👤 Select who's making the order
                         </div>
                         <div class="card-body invoiceDetailsInputs">
                             <div id="customerIdSelectorDiv">
@@ -300,7 +300,7 @@
                     <!--Item Details div-->
                     <div class="card">
                         <div class="card-header" id="placeOrderCardTitle">
-                            Select Items to Order
+                            🛍️ Select Items to Order
                         </div>
                         <div class="card-body itemDetailsInputs">
                             <div id="searchItemId">
@@ -336,7 +336,7 @@
                     <!--Order Price summery div-->
                     <div class="card ">
                         <div class="card-header" id="OrderPriceCardTitle">
-                            Total Price
+                            🧾 Total Price
                         </div>
                         <div class="card-body orderSummery">
                             <div id="totalPriceDiv">
@@ -398,15 +398,16 @@
                     </div>
                     <div class="card-body">
                         <div class="input-group mb-3">
+                            <span class="input-group-text"> 🔍 </span>
                             <input type="text" class="form-control" placeholder="Input ID here" aria-label="Recipient's itemname" aria-describedby="basic-addon2" id="searchOrderReference">
-                            <span class="input-group-text">search</span>
                         </div>
                         <div id="searchBtnDiv">
                             <select class="form-select form-select-sm" id="cmbOrderSearchBy" aria-label="Small select example">
                                 <option selected value="1">Order ID</option>
                                 <option value="2">Customer ID</option>
+                                <option value="3">By Date</option>
                             </select>
-                            <a href="#" class="btn btn-success" id="btnSearchOrderReference">Search</a>&nbsp;&nbsp;
+                            <a href="#" class="btn btn-success" id="btnSearchOrderReference" style="margin-left: 5px">Search</a>&nbsp;&nbsp;
                             <a href="#" class="btn btn-secondary" id="btnClearOrderReference">Clear</a>&nbsp;&nbsp;
                         </div>
                     </div>
