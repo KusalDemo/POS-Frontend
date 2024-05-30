@@ -29,8 +29,7 @@ function loadSearchedItemsToTable(){
     });
 }
 $('#btnSaveItemModal').on('click', ()=> {
-    $('#saveItemCodeField').val(generateId());
-    let newItemCode = $('#saveItemCodeField').val();
+    let newItemCode = generateId()
     let newItemName = $('#saveItemNameField').val();
     let newItemDescription = $('#saveItemDescriptionField').val();
     let newItemPrice = $('#saveItemPriceField').val();
@@ -43,7 +42,7 @@ $('#btnSaveItemModal').on('click', ()=> {
             icon: "warning"
         });
         return;
-    }else if(isNaN(newItemPrice) || isNaN(newItemQty)){
+    }else if(isNaN(newItemPrice) || isNaN(newItemQty) || newItemPrice <= 0 || newItemQty <= 0){
         Swal.fire({
             title: "OOPS..!",
             text: "Invalid Price or Quantity",

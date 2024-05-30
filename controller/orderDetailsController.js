@@ -2,6 +2,24 @@ import{orderArr} from "../db/db.js";
 
 let searchedOrdersArr=[];
 
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Your code here
+    $('#order-details-tbl-tbody').empty();
+    orderArr.map((order, index) => {
+        var row = `<tr>
+            <td id="order-id-tbl">${order.orderId}</td>
+            <td id="order-cus-id-tbl">${order.customerId}</td>
+            <td id="order-date-tbl">${order.orderDate}</td>
+            <td id="order-total-amount-tbl">${order.orderTotal}</td>
+            <td id="order-cash-amount-tbl">${order.paidAmount}</td>
+            <td id="order-discount-amount-tbl">${order.discount}</td>
+            <td id="order-balance-amount-tbl">${order.balance}</td>
+        </tr>`;
+        $('#order-details-tbl-tbody').append(row);
+    })
+});
 function loadSearchedOrdersToTable(){
     $('#order-details-tbody').empty();
     searchedOrdersArr.map((order, index) => {
@@ -87,7 +105,7 @@ $('#btnSearchOrderReference').on('click', () => {
                         <td id="order-discount-amount-tbl">${order.discount}</td>
                         <td id="order-balance-amount-tbl">${order.balance}</td>
                     </tr>`;
-                    $('#order-details-tbl-tbody').append(searchedOrder);
+                   $('#order-details-tbl-tbody').append(searchedOrder);
                 }
             })
         }
