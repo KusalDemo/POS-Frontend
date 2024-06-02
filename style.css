@@ -17,6 +17,15 @@ header{
 #main-section ,#login-section ,#signup-section{
     padding: 80px 70px;
 }
+#customer-section,#item-section,#order-details-section{
+    position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 70%;
+}
 .grid-container{
     display: grid;
     justify-content: center;
@@ -44,7 +53,7 @@ header{
     bottom: 0;
     margin: auto;
 
-    width: 70%;
+    width: 100%;
     height: 80%;
 }
 .logout-btn{
@@ -226,6 +235,9 @@ table{
 }
 /*user saving modal*/
 @media (max-width: 1000px) {
+    #customer-section,#item-section,#order-details-section{
+        width: 97%;
+    }
     .btn-group.saveViewBtns {
         left: 0;
         top: 0;
@@ -235,8 +247,8 @@ table{
         width: 100%;
         height: 500px;
     }
-}
 
+}
 /*Notification*/
 #notification {
     position: fixed;
