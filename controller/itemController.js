@@ -2,6 +2,7 @@ import {ItemModel} from "../model/itemModel.js";
 import {itemArr, searchedItemsArr} from "../db/db.js";
 
 var selectedItemIndex;
+const itemNameRegex=/^[0-9A-Za-z]{3,15}$/;
 function loadTableData(){
     $('#item-tbl-tbody').empty();
     itemArr.map((item, index) => {
@@ -42,7 +43,14 @@ $('#btnSaveItemModal').on('click', ()=> {
             icon: "warning"
         });
         return;
-    }else if(isNaN(newItemPrice) || isNaN(newItemQty) || newItemPrice <= 0 || newItemQty <= 0){
+    }else if(!itemNameRegex.test(newItemName)){
+        Swal.fire({
+            title: "OOPS..!",
+            text: "Invalid Name , Item Name must be 3-15 & only letters and numbers",
+            icon: "warning"
+        });
+        return;
+    } else if(isNaN(newItemPrice) || isNaN(newItemQty) || newItemPrice <= 0 || newItemQty <= 0){
         Swal.fire({
             title: "OOPS..!",
             text: "Invalid Price or Quantity",
@@ -90,6 +98,20 @@ $('#btnUpdateItemModal').on('click', ()=> {
         Swal.fire({
             title: "OOPS..!",
             text: "Please fill in all fields.",
+            icon: "warning"
+        });
+        return;
+    }else if(!itemNameRegex.test(updatedItemName)){
+        Swal.fire({
+            title: "OOPS..!",
+            text: "Invalid Name , Item Name must be 3-15 & only letters and numbers",
+            icon: "warning"
+        });
+        return;
+    }else if(isNaN(updatedItemPrice) || isNaN(updatedItemQty) || updatedItemPrice <= 0 || updatedItemQty <= 0){
+        Swal.fire({
+            title: "OOPS..!",
+            text: "Invalid Price or Quantity",
             icon: "warning"
         });
         return;

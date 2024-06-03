@@ -2,8 +2,9 @@ import {CustomerModel} from "../model/customerModel.js";
 import {customerArr, searchedCustomersArr} from "../db/db.js";
 
 var selectedCusIndex;
-var emailRegex=/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-var userNameRegex=/^[0-9A-Za-z]{6,16}$/;
+const emailRegex=/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const userNameRegex=/^[0-9A-Za-z]{6,16}$/;
+const addressRegex = /^[a-zA-Z0-9\s,'-]*$/
 var completedFieldCount=0;
 function loadTableData(){
     $('#customer-tbl-tbody').empty();
@@ -57,6 +58,13 @@ $('#btnSaveCustomer').on('click', () => {
         Swal.fire({
             title: "OOPS..!",
             text: "Invalid Email",
+            icon: "warning"
+        });
+        return;
+    }else if(!addressRegex.test(cusAddress)){
+        Swal.fire({
+            title: "OOPS..!",
+            text: "Invalid Address",
             icon: "warning"
         });
         return;
@@ -123,6 +131,36 @@ $('#btnUpdateCustomerModal').on('click', () => {
     let selectedCusEmail = $('#updateUserEmailField').val();
     let selectedCusAddress = $('#updateUserAddressField').val();
     let selectedCusBranch = $('#updateUserBranchField').val();
+
+    if (!selectedCusName ||!selectedCusEmail ||!selectedCusAddress) {
+        Swal.fire({
+            title: "OOPS..!",
+            text: " Please fill in all fields.",
+            icon: "warning"
+        });
+        return;
+    }else if(!userNameRegex.test(selectedCusName)){
+        Swal.fire({
+            title: "OOPS..!",
+            text: "Invalid Name , Username must be 6-16 & only letters and numbers",
+            icon: "warning"
+        });
+        return;
+    }else if(!emailRegex.test(selectedCusEmail)){
+        Swal.fire({
+            title: "OOPS..!",
+            text: "Invalid Email",
+            icon: "warning"
+        });
+        return;
+    }else if(!addressRegex.test(selectedCusAddress)){
+        Swal.fire({
+            title: "OOPS..!",
+            text: "Invalid Address",
+            icon: "warning"
+        });
+        return;
+    }
 
     customerArr[selectedCusIndex].cus=selectedCusId;
     customerArr[selectedCusIndex].cusName=selectedCusName;
