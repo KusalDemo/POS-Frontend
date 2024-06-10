@@ -13,6 +13,7 @@ header{
 }
 .nav-item>span:hover{
     color: black;
+    border-bottom: 2px solid red;
 }
 #main-section ,#login-section ,#signup-section{
     padding: 80px 70px;
@@ -247,6 +248,9 @@ table{
         width: 100%;
         height: 500px;
     }
+   /* p,span{
+        font-size: 45px;
+    }*/
 
 }
 /*Notification*/
