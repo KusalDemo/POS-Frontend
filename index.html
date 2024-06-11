@@ -263,14 +263,9 @@
             <img src="assets/icons/icons8-create-order-48.png" id= "placeOrderIcon" alt="Bootstrap" width="50" height="50">
             <h2>Place Order</h2>
         </div>
-        <div class="card">
-            <div class="card-header">
-                Home / Order
-            </div>
-            <div class="card-body">
-                <div class="grid-container-place-order">
+        <div class="grid-container-place-order">
                     <!-- Invoice Details div-->
-                    <div class="card">
+                    <div class="card placeOrderCard">
                         <div class="card-header" id="searchInvoiceDetailsTitle">
                             👤 Select who's making the order
                         </div>
@@ -297,7 +292,7 @@
                         </div>
                     </div>
                     <!--Item Details div-->
-                    <div class="card">
+                    <div class="card placeOrderCard">
                         <div class="card-header" id="placeOrderCardTitle">
                             🛍️ Select Items to Order
                         </div>
@@ -333,7 +328,7 @@
                         </div>
                     </div>
                     <!--Order Price summery div-->
-                    <div class="card ">
+                    <div class="card placeOrderCard">
                         <div class="card-header" id="OrderPriceCardTitle">
                             🧾 Total Price
                         </div>
@@ -376,8 +371,6 @@
                     <tbody id="order-tbl-tbody">
                     </tbody>
                 </table>
-            </div>
-        </div>
     </section>
     <!--OrderDetails Section-->
     <section id="order-details-section">
@@ -416,18 +409,18 @@
                     <thead>
                     <tr class="table-info">
                         <th scope="col">Order ID</th>
-                        <th scope="col">Customer ID</th>
+                        <th scope="col">Cus ID</th>
                         <th scope="col">Date</th>
                         <th scope="col">Total</th>
                         <th scope="col">Paid</th>
-                        <th scope="col">Discount</th>
+                        <th scope="col">%</th>
                         <th scope="col">Balance</th>
                     </tr>
                     </thead>
                     <tbody id="order-details-tbl-tbody">
                     </tbody>
                 </table>
-                <p>Selected Order Details</p>
+                <p>⬇️ Selected Order Details</p>
                 <!-- Table-->
                 <table class="table table-bordered table-hover">
                     <thead>
