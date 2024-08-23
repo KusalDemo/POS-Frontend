@@ -1,13 +1,9 @@
 import {CustomerModel} from "../model/customerModel.js";
-import {customerArr, searchedCustomersArr} from "../db/db.js";
 
-var selectedCusIndex;
 var selectedEmail;
 const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const userNameRegex = /^[0-9A-Za-z]{6,16}$/;
 const addressRegex = /^[a-zA-Z0-9\s,'-]*$/
-var completedFieldCount = 0;
-
 async function loadTableData() {
     $('#customer-tbl-tbody').empty();
     const option = {
@@ -28,6 +24,11 @@ async function loadTableData() {
             </tr>`;
 
                 $('#customer-tbl-tbody').append(row);
+            });
+            $('#customer-tbl').DataTable({
+                "paging": true,
+                "pageLength": 10,
+                "destroy": true
             });
         } else {
             console.error("Retrieved data is not an array");
@@ -160,8 +161,6 @@ $('#customer-tbl-tbody').on('click', 'tr', function () {
     $('#updateUserAddressField').val(selectedCusAddress);
     $('#updateUserBranchField').val(selectedCusBranch);
 
-    console.log(selectedCusId, selectedCusName, selectedCusEmail, selectedCusAddress, selectedCusBranch);
-    selectedCusIndex = $(this).index();
     selectedEmail = selectedCusEmail;
 })
 $('#btnUpdateCustomerModal').on('click', () => {
@@ -274,24 +273,5 @@ $('#btnViewAllCustomers').on('click', () => {
 })
 $('#btnClearCustomerFields').on('click', () => {
     $('#searchCustomerReference').val("");
-    $('#btnViewAllCustomers').click();
+    loadTableData();
 });
-
-function generateId() {
-    var now = new Date();
-    var dd = String(now.getDate()).padStart(2, '0');
-    var mm = String(now.getMonth() + 1).padStart(2, '0');
-    var yy = now.getFullYear();
-    var hh = String(now.getHours()).padStart(2, '0');
-    var min = String(now.getMinutes()).padStart(2, '0');
-    var ss = String(now.getSeconds()).padStart(2, '0');
-    var ms = String(now.getMilliseconds()).padStart(3, '0');
-
-    var id = "C" + dd + mm + ms + hh + yy + ss + min;
-    return id;
-}
-
-let modalInputProgress = () => {
-    if (!$('#updateUserNameField').val()) {
-    }
-}

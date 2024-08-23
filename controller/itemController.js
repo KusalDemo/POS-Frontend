@@ -1,6 +1,3 @@
-import {ItemModel} from "../model/itemModel.js";
-import {itemArr, searchedItemsArr} from "../db/db.js";
-
 var selectedItemPropertyId;
 const itemNameRegex = /^[0-9A-Za-z]{3,15}$/;
 
@@ -63,13 +60,12 @@ async function loadSearchedItemsToTable(searchText) {
 }
 
 $('#btnSaveItemModal').on('click', () => {
-    let newItemCode = generateId()
     let newItemName = $('#saveItemNameField').val();
     let newItemDescription = $('#saveItemDescriptionField').val();
     let newItemPrice = $('#saveItemPriceField').val();
     let newItemQty = $('#saveItemQtyField').val();
 
-    if (!newItemCode || !newItemName || !newItemDescription || !newItemPrice || !newItemQty) {
+    if (!newItemName || !newItemDescription || !newItemPrice || !newItemQty) {
         Swal.fire({
             title: "OOPS..!",
             text: "Please fill in all fields.",
@@ -278,14 +274,3 @@ $('#btnViewAllItems').on('click', () => {
     loadTableData();
 })
 
-function generateId() {
-    var now = new Date();
-    var dd = String(now.getDate()).padStart(2, '0');
-    var mm = String(now.getMonth() + 1).padStart(2, '0');
-    var yy = now.getFullYear();
-    var ss = String(now.getSeconds()).padStart(2, '0');
-    var ms = String(now.getMilliseconds()).padStart(3, '0');
-
-    var id = "I" + dd + mm + ms + yy + ss;
-    return id;
-}
