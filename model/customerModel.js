@@ -1,50 +1,41 @@
 export class CustomerModel {
 
-    constructor(cusId, cusName, cusEmail, cusAddress, cusBranch) {
-        this._cusId = cusId;
-        this._cusName = cusName;
-        this._cusEmail = cusEmail;
-        this._cusAddress = cusAddress;
-        this._cusBranch = cusBranch;
+    constructor(name, email, address, branch) {
+        this._name = name;
+        this._email = email;
+        this._address = address;
+        this._branch = branch;
     }
 
-    get cusId() {
-        return this._cusId;
+    get name() {
+        return this._name;
     }
 
-    set cusId(value) {
-        this._cusId = value;
+    set name(value) {
+        this._name = value;
     }
 
-    get cusName() {
-        return this._cusName;
+    get email() {
+        return this._email;
     }
 
-    set cusName(value) {
-        this._cusName = value;
+    set email(value) {
+        this._email = value;
     }
 
-    get cusEmail() {
-        return this._cusEmail;
+    get address() {
+        return this._address;
     }
 
-    set cusEmail(value) {
-        this._cusEmail = value;
+    set address(value) {
+        this._address = value;
     }
 
-    get cusAddress() {
-        return this._cusAddress;
+    get branch() {
+        return this._branch;
     }
 
-    set cusAddress(value) {
-        this._cusAddress = value;
-    }
-
-    get cusBranch() {
-        return this._cusBranch;
-    }
-
-    set cusBranch(value) {
-        this._cusBranch = value;
+    set branch(value) {
+        this._branch = value;
     }
 }

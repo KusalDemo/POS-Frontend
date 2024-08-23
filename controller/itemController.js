@@ -1,56 +1,89 @@
 import {ItemModel} from "../model/itemModel.js";
 import {itemArr, searchedItemsArr} from "../db/db.js";
 
-var selectedItemIndex;
-const itemNameRegex=/^[0-9A-Za-z]{3,15}$/;
-function loadTableData(){
+var selectedItemPropertyId;
+const itemNameRegex = /^[0-9A-Za-z]{3,15}$/;
+
+async function loadTableData() {
     $('#item-tbl-tbody').empty();
-    itemArr.map((item, index) => {
-        var row = `<tr>
-            <td id="item-code-tbl">${item.itemId}</td>
-            <td id="item-name-tbl">${item.itemName}</td>
-            <td id="item-description-tbl">${item.description}</td>
-            <td id="item-price-tbl">${item.itemPrice}</td>
-            <td id="item-qty-tbl">${item.qtyOnHand}</td>
-        </tr>`;
-        $('#item-tbl-tbody').append(row);
-    });
+    let option = {
+        method: "GET"
+    }
+    try {
+        const response = await fetch("http://localhost:8083/items", option);
+        let fetchedData = await response.json();
+        let items = fetchedData.data;
+
+        if (Array.isArray(items)) {
+            items.forEach((item, index) => {
+                var row = `<tr>
+                    <td id="item-code-tbl">${item.propertyId}</td>
+                    <td id="item-name-tbl">${item.name}</td>
+                    <td id="item-description-tbl">${item.description}</td>
+                    <td id="item-price-tbl">${item.price}</td>
+                    <td id="item-qty-tbl">${item.qty}</td>
+                </tr>`;
+                $('#item-tbl-tbody').append(row);
+            });
+        } else {
+            console.error("Retrieved data is not an array");
+        }
+    } catch (error) {
+        console.error(error);
+    }
 }
-function loadSearchedItemsToTable(){
+
+async function loadSearchedItemsToTable(searchText) {
     $('#item-tbl-tbody').empty();
-    searchedItemsArr.map((item, index) => {
-        var searchedItem = `<tr>
-            <td id="item-code-tbl">${item.itemId}</td>
-            <td id="item-name-tbl">${item.itemName}</td>
-            <td id="item-description-tbl">${item.description}</td>
-            <td id="item-price-tbl">${item.itemPrice}</td>
-            <td id="item-qty-tbl">${item.qtyOnHand}</td>
-        </tr>`;
-        $('#item-tbl-tbody').append(searchedItem);
-    });
+    let option={
+        method:"GET",
+    }
+    try{
+        const response=await fetch("http://localhost:8083/items/"+searchText,option);
+        let fetchedData = await response.json();
+        let items =fetchedData.data;
+
+        if(Array.isArray(items)){
+            items.forEach((item,index)=>{
+                var row = `<tr>
+                    <td id="item-code-tbl">${item.propertyId}</td>
+                    <td id="item-name-tbl">${item.name}</td>
+                    <td id="item-description-tbl">${item.description}</td>
+                    <td id="item-price-tbl">${item.price}</td>
+                    <td id="item-qty-tbl">${item.qty}</td>
+                </tr>`;
+                $('#item-tbl-tbody').append(row);
+            })
+        }else {
+            console.error("Retrieved data is not an array");
+        }
+    }catch (error){
+        console.error(error)
+    }
 }
-$('#btnSaveItemModal').on('click', ()=> {
+
+$('#btnSaveItemModal').on('click', () => {
     let newItemCode = generateId()
     let newItemName = $('#saveItemNameField').val();
     let newItemDescription = $('#saveItemDescriptionField').val();
     let newItemPrice = $('#saveItemPriceField').val();
     let newItemQty = $('#saveItemQtyField').val();
 
-    if(!newItemCode || !newItemName || !newItemDescription || !newItemPrice || !newItemQty){
+    if (!newItemCode || !newItemName || !newItemDescription || !newItemPrice || !newItemQty) {
         Swal.fire({
             title: "OOPS..!",
             text: "Please fill in all fields.",
             icon: "warning"
         });
         return;
-    }else if(!itemNameRegex.test(newItemName)){
+    } else if (!itemNameRegex.test(newItemName)) {
         Swal.fire({
             title: "OOPS..!",
             text: "Invalid Name , Item Name must be 3-15 & only letters and numbers",
             icon: "warning"
         });
         return;
-    } else if(isNaN(newItemPrice) || isNaN(newItemQty) || newItemPrice <= 0 || newItemQty <= 0){
+    } else if (isNaN(newItemPrice) || isNaN(newItemQty) || newItemPrice <= 0 || newItemQty <= 0) {
         Swal.fire({
             title: "OOPS..!",
             text: "Invalid Price or Quantity",
@@ -58,20 +91,57 @@ $('#btnSaveItemModal').on('click', ()=> {
         });
         return;
     }
-     let newItemToSave = new ItemModel(newItemCode, newItemName, newItemDescription, newItemPrice, newItemQty);
-    itemArr.push(newItemToSave);
-    console.log("New Item Added :",newItemToSave.itemName);
-    console.log(itemArr)
-    $('#save-item-modal').modal('hide');
-    loadTableData();
-    Swal.fire({
-        title: "Successfully Saved!",
-        text: "new Item \""+newItemCode+"\" added to the stock..",
-        icon: "success"
-    });
+    let option = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(
+            {
+                propertyId: null,
+                name: newItemName,
+                description: newItemDescription,
+                price: newItemPrice,
+                qty: newItemQty
+            }
+        )
+    }
+    fetch("http://localhost:8083/items", option)
+        .then(response => {
+            return response.json().then(data => ({
+                status: response.status,
+                message: data.message,
+                body: data
+            }));
+        })
+        .then(response => {
+            if (response.status === 200) {
+                loadTableData();
+                Swal.fire({
+                    title: "Done",
+                    text: "Items saved successfully",
+                    icon: "success"
+                })
+            } else if (response.status === 400) {
+                Swal.fire({
+                    title: "OOPS..!",
+                    text: response.message,
+                    icon: "error"
+                })
+            } else if (response.status === 403) {
+                Swal.fire({
+                    title: "OOPS..!",
+                    text: response.message,
+                    icon: "error"
+                })
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        })
 });
+
 $('#item-tbl-tbody').on('click', 'tr', function () {
-    let index = $(this).index();
     let selectedItemCode = $(this).find("#item-code-tbl").text();
     let selectedItemName = $(this).find("#item-name-tbl").text();
     let selectedItemDescription = $(this).find("#item-description-tbl").text();
@@ -85,30 +155,30 @@ $('#item-tbl-tbody').on('click', 'tr', function () {
     $('#updateItemPriceField').val(selectedItemPrice);
     $('#updateItemQtyField').val(selectedItemQty);
 
-    selectedItemIndex = index;
+    selectedItemPropertyId = selectedItemCode;
 })
-$('#btnUpdateItemModal').on('click', ()=> {
+$('#btnUpdateItemModal').on('click', () => {
     let updatedItemCode = $('#updateItemCodeField').val();
     let updatedItemName = $('#updateItemNameField').val();
     let updatedItemDescription = $('#updateItemDescriptionField').val();
     let updatedItemPrice = $('#updateItemPriceField').val();
     let updatedItemQty = $('#updateItemQtyField').val();
 
-    if(!updatedItemCode || !updatedItemName || !updatedItemDescription || !updatedItemPrice || !updatedItemQty){
+    if (!updatedItemCode || !updatedItemName || !updatedItemDescription || !updatedItemPrice || !updatedItemQty) {
         Swal.fire({
             title: "OOPS..!",
             text: "Please fill in all fields.",
             icon: "warning"
         });
         return;
-    }else if(!itemNameRegex.test(updatedItemName)){
+    } else if (!itemNameRegex.test(updatedItemName)) {
         Swal.fire({
             title: "OOPS..!",
             text: "Invalid Name , Item Name must be 3-15 & only letters and numbers",
             icon: "warning"
         });
         return;
-    }else if(isNaN(updatedItemPrice) || isNaN(updatedItemQty) || updatedItemPrice <= 0 || updatedItemQty <= 0){
+    } else if (isNaN(updatedItemPrice) || isNaN(updatedItemQty) || updatedItemPrice <= 0 || updatedItemQty <= 0) {
         Swal.fire({
             title: "OOPS..!",
             text: "Invalid Price or Quantity",
@@ -116,55 +186,98 @@ $('#btnUpdateItemModal').on('click', ()=> {
         });
         return;
     }
-    itemArr[selectedItemIndex] = new ItemModel(updatedItemCode, updatedItemName, updatedItemDescription, updatedItemPrice, updatedItemQty);
-
-    $('#update-item-modal').modal('hide');
-    loadTableData();
-    Swal.fire({
-        title: "Successfully Updated!",
-        text: " \""+updatedItemCode+"\" Updated...",
-        icon: "success"
-    });
+    let option = {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(
+            {
+                propertyId: null,
+                name: updatedItemName,
+                description: updatedItemDescription,
+                price: updatedItemPrice,
+                qty: updatedItemQty
+            }
+        )
+    }
+    fetch("http://localhost:8083/items/" + updatedItemCode, option)
+        .then(response => {
+            return response.json().then(data => ({
+                    status: response.status,
+                    message: data.message,
+                    body: data
+                })
+            )
+        })
+        .then(response => {
+            if (response.status === 200) {
+                loadTableData();
+                $('#update-item-modal').modal('hide');
+                Swal.fire({
+                    title: "Done",
+                    text: "Item updated successfully",
+                    icon: "success"
+                })
+            } else if (response.status === 404) {
+                Swal.fire({
+                    title: "OOPS..!",
+                    text: response.message,
+                    icon: "error"
+                })
+            } else if(response.status === 403){
+                Swal.fire({
+                    title: "OOPS..!",
+                    text: response.message,
+                    icon: "error"
+                })
+            }
+        })
 });
-$('#btnDeleteItemModal').on('click', ()=> {
+$('#btnDeleteItemModal').on('click', () => {
     $('#update-item-modal').modal('hide');
     $('#delete-item-modal').modal('show');
-    $('#deleteItemIdField').val(itemArr[selectedItemIndex].itemId);
+    $('#deleteItemIdField').val(selectedItemPropertyId);
 });
-$('#btnConfirmDeleteItem').on('click', ()=> {
-    itemArr.splice(selectedItemIndex, 1);
-    $('#delete-item-modal').modal('hide');
-    loadTableData();
-    Swal.fire({
-        title: "Successfully Deleted!",
-        text: "Selected item has been deleted...",
-        icon: "success"
-    });
+$('#btnConfirmDeleteItem').on('click', () => {
+    let option={
+        method:"DELETE"
+    }
+    fetch('http://localhost:8083/items/'+selectedItemPropertyId,option)
+        .then(response=>{
+            return response.json().then(data=>({
+                status:response.status,
+                message:data.message,
+                body:data
+            }))
+        })
+        .then(response=>{
+            if(response.status===201){
+                $('#delete-item-modal').modal('hide');
+                loadTableData();
+                Swal.fire({
+                    title: "Successfully Deleted!",
+                    text: response.message,
+                    icon: "success"
+                });
+            }else if(response.status===400){
+                Swal.fire({
+                    title: "OOPS..!",
+                    text: response.message,
+                    icon: "warning"
+                });
+            }
+        })
 });
 $('#btnSearchItem').on('click', () => {
     console.log("Search Item Clicked");
-    try {
-        let selectedSearchingType = $('#cmbSearchByItem').val();
-        console.log(selectedSearchingType);
-        searchedItemsArr.splice(0, searchedItemsArr.length);
-        let searchText = $('#searchItemReference').val();
-        if(selectedSearchingType==="1"){
-            let matchedItem =itemArr.find(item => item.itemName === searchText);
-            searchedItemsArr.push(matchedItem);
-        }
-        else if(selectedSearchingType==="2") {
-            let matchedItem = itemArr.find(item => item.itemId === searchText);
-            searchedItemsArr.push(matchedItem);
-        }
-        console.log(searchedItemsArr);
-        loadSearchedItemsToTable()
-    }catch (error) {
-        setTimeout(() => {alert("No any Item Found")},500);
-    }
+    let searchText = $('#txtSearchedValue').val();
+    loadSearchedItemsToTable(searchText)
 });
 $('#btnViewAllItems').on('click', () => {
     loadTableData();
 })
+
 function generateId() {
     var now = new Date();
     var dd = String(now.getDate()).padStart(2, '0');
@@ -173,6 +286,6 @@ function generateId() {
     var ss = String(now.getSeconds()).padStart(2, '0');
     var ms = String(now.getMilliseconds()).padStart(3, '0');
 
-    var id = "I" + dd + mm + ms + yy + ss ;
+    var id = "I" + dd + mm + ms + yy + ss;
     return id;
 }

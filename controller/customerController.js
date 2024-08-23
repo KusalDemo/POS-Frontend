@@ -2,66 +2,86 @@ import {CustomerModel} from "../model/customerModel.js";
 import {customerArr, searchedCustomersArr} from "../db/db.js";
 
 var selectedCusIndex;
-const emailRegex=/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const userNameRegex=/^[0-9A-Za-z]{6,16}$/;
+var selectedEmail;
+const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const userNameRegex = /^[0-9A-Za-z]{6,16}$/;
 const addressRegex = /^[a-zA-Z0-9\s,'-]*$/
-var completedFieldCount=0;
-function loadTableData(){
-    $('#customer-tbl-tbody').empty();
-    customerArr.map((customer, index) => {
-        var row = `<tr>
-            <td id="cus-id-tbl">${customer.cusId}</td>
-            <td id="cus-name-tbl">${customer.cusName}</td>
-            <td id="cus-email-tbl">${customer.cusEmail}</td>
-            <td id="cus-address-tbl">${customer.cusAddress}</td>
-            <td id="cus-branch-tbl">${customer.cusBranch}</td>
-        </tr>`;
+var completedFieldCount = 0;
 
-        $('#customer-tbl-tbody').append(row);
-    });
+async function loadTableData() {
+    $('#customer-tbl-tbody').empty();
+    const option = {
+        method: "GET"
+    }
+    try{
+        const response = await fetch("http://localhost:8083/customer", option);
+        const fetchedData = await response.json();
+        let customers = fetchedData.data;
+
+        if(Array.isArray(customers)){
+            customers.forEach((customer, index) => {
+                console.log(customer.name, " - ", customer.email);
+                var row = `<tr>
+                <td id="cus-name-tbl">${customer.name}</td>
+                <td id="cus-email-tbl">${customer.email}</td>
+                <td id="cus-address-tbl">${customer.address}</td>
+                <td id="cus-branch-tbl">${customer.branch}</td>
+            </tr>`;
+
+                $('#customer-tbl-tbody').append(row);
+            });
+        }else{
+            console.error("Retrieved data is not an array");
+        }
+    }catch (error){
+        console.log(error);
+    }
 }
-function loadSearchedCustomersToTable(){
+
+function loadSearchedCustomersToTable() {
     $('#customer-tbl-tbody').empty();
     searchedCustomersArr.map((customer, index) => {
         var searchedCustomer = `<tr>
             <td id="cus-id-tbl">${customer.cusId}</td>
-            <td id="cus-name-tbl">${customer.cusName}</td>
-            <td id="cus-email-tbl">${customer.cusEmail}</td>
-            <td id="cus-address-tbl">${customer.cusAddress}</td>
-            <td id="cus-branch-tbl">${customer.cusBranch}</td>
+            <td id="cus-name-tbl">${customer.name}</td>
+            <td id="cus-email-tbl">${customer.email}</td>
+            <td id="cus-address-tbl">${customer.address}</td>
+            <td id="cus-branch-tbl">${customer.branch}</td>
         </tr>`;
         $('#customer-tbl-tbody').append(searchedCustomer);
     });
 }
+
 $('#btnSaveCustomer').on('click', () => {
     console.log("Save Customer Clicked");
-    let cusName = $('#saveUserNameField').val();
-    let cusEmail = $('#saveUserEmailField').val();
-    let cusAddress = $('#saveUserAddressField').val();
-    let cusBranch = $('#saveUserBranchField').val();
+    let name = $('#saveUserNameField').val();
+    let email = $('#saveUserEmailField').val();
+    let address = $('#saveUserAddressField').val();
+    let branch = $('#saveUserBranchField').val();
+    let customerModel = new CustomerModel(name, email, address, branch);
 
-    if (!cusName ||!cusEmail ||!cusAddress ||!cusBranch) {
+    if (!name || !email || !address || !branch) {
         Swal.fire({
             title: "OOPS..!",
             text: " Please fill in all fields.",
             icon: "warning"
         });
         return;
-    }else if(!userNameRegex.test(cusName)){
+    } else if (!userNameRegex.test(name)) {
         Swal.fire({
             title: "OOPS..!",
             text: "Invalid Name , Username must be 6-16 & only letters and numbers",
             icon: "warning"
         });
         return;
-    }else if(!emailRegex.test(cusEmail)){
+    } else if (!emailRegex.test(email)) {
         Swal.fire({
             title: "OOPS..!",
             text: "Invalid Email",
             icon: "warning"
         });
         return;
-    }else if(!addressRegex.test(cusAddress)){
+    } else if (!addressRegex.test(address)) {
         Swal.fire({
             title: "OOPS..!",
             text: "Invalid Address",
@@ -69,16 +89,47 @@ $('#btnSaveCustomer').on('click', () => {
         });
         return;
     }
-    let newCustomer = new CustomerModel(String(generateId()), cusName, cusEmail, cusAddress, cusBranch);
-    customerArr.push(newCustomer);
-    console.log(customerArr)
-    console.log("New Customer Added :",newCustomer.cusName);
-    loadTableData();
-    Swal.fire({
-        title: "Done",
-        text: "new Customer \""+newCustomer.cusName+"\" has joined the store..",
-        icon: "success"
-    });
+    console.log(customerModel);
+    const option = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            name: customerModel.name,
+            email: customerModel.email,
+            address: customerModel.address,
+            branch: customerModel.branch
+        })
+    }
+    fetch("http://localhost:8083/customer", option)
+        .then(response => {
+            return response.json().then(data => ({
+                status: response.status,
+                message: data.message,
+                body: data
+            }));
+        })
+        .then(response => {
+            if (response.status === 201) {
+                Swal.fire({
+                    title: "Done",
+                    text: response.message,
+                    icon: "success"
+                });
+                console.log("Message is : ", response.message)
+                loadTableData();
+            } else if (response.status === 400) {
+                Swal.fire({
+                    title: "OOPS..!",
+                    text: response.message,
+                    icon: "error"
+                });
+                console.log("Message is : ", response.message)
+            }
+        })
+        .catch(error => {
+            console.log("Customer Not Saved.. -> ", error);
+            console.log(error);
+        })
 });
 $('#btnSearchCustomer').on('click', () => {
     console.log("Search Customer Clicked");
@@ -87,20 +138,19 @@ $('#btnSearchCustomer').on('click', () => {
         console.log(selectedSearchingType);
         searchedCustomersArr.splice(0, searchedCustomersArr.length);
         let searchText = $('#searchCustomerReference').val();
-        if(selectedSearchingType==="1"){
-            let matchedCustomer =customerArr.find(customer => customer.cusId === searchText);
+        if (selectedSearchingType === "1") {
+            let matchedCustomer = customerArr.find(customer => customer.cusId === searchText);
             searchedCustomersArr.push(matchedCustomer);
-        }
-        else if(selectedSearchingType==="2"){
-            let matchedCustomer =customerArr.find(customer => customer.cusEmail === searchText);
+        } else if (selectedSearchingType === "2") {
+            let matchedCustomer = customerArr.find(customer => customer.email === searchText);
             searchedCustomersArr.push(matchedCustomer);
-        }else if(selectedSearchingType==="3"){
-            let matchedCustomer =customerArr.find(customer => customer.cusName === searchText);
+        } else if (selectedSearchingType === "3") {
+            let matchedCustomer = customerArr.find(customer => customer.name === searchText);
             searchedCustomersArr.push(matchedCustomer);
         }
         console.log(searchedCustomersArr);
         loadSearchedCustomersToTable()
-    }catch (error) {
+    } catch (error) {
         Swal.fire({
             title: "OOPS",
             text: "No Customer Found",
@@ -122,8 +172,9 @@ $('#customer-tbl-tbody').on('click', 'tr', function () {
     $('#updateUserAddressField').val(selectedCusAddress);
     $('#updateUserBranchField').val(selectedCusBranch);
 
-    console.log(selectedCusId,selectedCusName,selectedCusEmail,selectedCusAddress,selectedCusBranch);
+    console.log(selectedCusId, selectedCusName, selectedCusEmail, selectedCusAddress, selectedCusBranch);
     selectedCusIndex = $(this).index();
+    selectedEmail=selectedCusEmail;
 })
 $('#btnUpdateCustomerModal').on('click', () => {
     let selectedCusId = $('#updateUserIdField').val();
@@ -132,28 +183,28 @@ $('#btnUpdateCustomerModal').on('click', () => {
     let selectedCusAddress = $('#updateUserAddressField').val();
     let selectedCusBranch = $('#updateUserBranchField').val();
 
-    if (!selectedCusName ||!selectedCusEmail ||!selectedCusAddress) {
+    if (!selectedCusName || !selectedCusEmail || !selectedCusAddress) {
         Swal.fire({
             title: "OOPS..!",
             text: " Please fill in all fields.",
             icon: "warning"
         });
         return;
-    }else if(!userNameRegex.test(selectedCusName)){
+    } else if (!userNameRegex.test(selectedCusName)) {
         Swal.fire({
             title: "OOPS..!",
             text: "Invalid Name , Username must be 6-16 & only letters and numbers",
             icon: "warning"
         });
         return;
-    }else if(!emailRegex.test(selectedCusEmail)){
+    } else if (!emailRegex.test(selectedCusEmail)) {
         Swal.fire({
             title: "OOPS..!",
             text: "Invalid Email",
             icon: "warning"
         });
         return;
-    }else if(!addressRegex.test(selectedCusAddress)){
+    } else if (!addressRegex.test(selectedCusAddress)) {
         Swal.fire({
             title: "OOPS..!",
             text: "Invalid Address",
@@ -161,34 +212,74 @@ $('#btnUpdateCustomerModal').on('click', () => {
         });
         return;
     }
+    let option = {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            name: selectedCusName,
+            email: selectedCusEmail,
+            address: selectedCusAddress,
+            branch: selectedCusBranch
+        })
+    }
 
-    customerArr[selectedCusIndex].cus=selectedCusId;
-    customerArr[selectedCusIndex].cusName=selectedCusName;
-    customerArr[selectedCusIndex].cusEmail=selectedCusEmail;
-    customerArr[selectedCusIndex].cusAddress=selectedCusAddress;
-    customerArr[selectedCusIndex].cusBranch=selectedCusBranch;
+    fetch(`http://localhost:8083/customer/`+selectedEmail, option)
+        .then(response => {
+            return response.json().then(data => ({
+                status: response.status,
+                message: data.message,
+                body: data
+            }));
+        })
+        .then(response => {
+            if (response.status === 201) {
+                loadTableData();
+                $('#btnCloseUpdateCustomerModal').click();
+                Swal.fire({
+                    title: "Customer Updated Successfully",
+                    text: " \"" + selectedCusId + "\" Updated...",
+                    icon: "success"
+                });
+            } else if (response.status === 400) {
+                Swal.fire({
+                    title: "OOPS..!",
+                    text: response.message,
+                    icon: "warning"
+                });
+            }
+        })
 
-    loadTableData();
-    $('#btnCloseUpdateCustomerModal').click();
-    Swal.fire({
-        title: "Customer Updated Successfully",
-        text: " \""+selectedCusId+"\" Updated...",
-        icon: "success"
-    });
 })
 $('#btnDeleteCustomerModal').on('click', () => {
     $('#btnDeleteCustomer').click();
-    $('#deleteUserIdField').val(customerArr[selectedCusIndex].cusId);
+    $('#deleteUserIdField').val(selectedEmail);
 });
 $('#btnConfirmDeleteCustomer').on('click', () => {
-    customerArr.splice(selectedCusIndex, 1);
-    $('#cancelDeleteCustomer').click();
-    loadTableData();
-    Swal.fire({
-        title: "Customer Deleted Successfully",
-        text: "Selected Customer has been deleted...",
-        icon: "success"
-    });
+    let option={
+        method: "DELETE",
+        headers: {"Content-Type": "application/json"},
+    }
+    fetch('http://localhost:8083/customer/' + selectedEmail, option)
+        .then(response=>{
+            return response.json();
+        })
+        .then(response=>{
+            if(response.status===201){
+                loadTableData();
+                $('#btnCloseDeleteCustomerModal').click();
+                Swal.fire({
+                    title: "Customer Deleted Successfully",
+                    text: "Selected Customer has been deleted...",
+                    icon: "success"
+                });
+            }else if(response.status===400){
+                Swal.fire({
+                    title: "OOPS..!",
+                    text: response.message,
+                    icon: "warning"
+                });
+            }
+        })
 })
 $('#btnViewAllCustomers').on('click', () => {
     loadTableData();
@@ -197,6 +288,7 @@ $('#btnClearCustomerFields').on('click', () => {
     $('#searchCustomerReference').val("");
     $('#btnViewAllCustomers').click();
 });
+
 function generateId() {
     var now = new Date();
     var dd = String(now.getDate()).padStart(2, '0');
@@ -210,7 +302,8 @@ function generateId() {
     var id = "C" + dd + mm + ms + hh + yy + ss + min;
     return id;
 }
-let modalInputProgress =()=>{
-    if(!$('#updateUserNameField').val()){
+
+let modalInputProgress = () => {
+    if (!$('#updateUserNameField').val()) {
     }
 }
