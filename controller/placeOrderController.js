@@ -11,23 +11,39 @@ function initialize() {
     loadCustomers();
     loadItems();
 }
-$('#customerIdSelector').on('click', function() {
+$('#customerIdSelector').on('focus', function() {
     loadCustomers();
 })
 $('#itemIdSelector').on('click', function() {
     loadItems();
 })
-function loadCustomers() {
+async function loadCustomers() {
     $('#customerIdSelector').empty();
-    $.each(customerArr, function(index, customer) {
-        $('#customerIdSelector').append('<option value="' + customer.cusId + '">' + customer.cusName + '</option>');
-    });
+    let option={
+        method:"GET"
+    }
+    let response = await fetch("http://localhost:8083/customer",option);
+    let fetchedData = await response.json();
+    let data = fetchedData.data;
+    if(Array.isArray(data)){
+       data.forEach((customer,index)=>{
+           $('#customerIdSelector').append('<option value="'+customer.email+'">'+customer.name+'</option>');
+       })
+    }
 }
-function loadItems() {
+async function loadItems() {
     $('#itemIdSelector').empty();
-    $.each(itemArr, function(index, item) {
-        $('#itemIdSelector').append('<option value="' + item.itemId + '">' + item.itemName + '</option>');
-    });
+    let option={
+        method:"GET"
+    }
+    let response = await fetch("http://localhost:8083/items",option);
+    let fetchedData = await response.json();
+    let data = fetchedData.data;
+    if(Array.isArray(data)){
+        data.forEach((item,index)=>{
+            $('#itemIdSelector').append('<option value="'+item.id+'">'+item.name+'</option>')
+        });
+    }
 }
     function updateCustomerInfo() {
         var selectedCustomerId = $('#customerIdSelector').val();
