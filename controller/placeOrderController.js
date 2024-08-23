@@ -14,7 +14,7 @@ function initialize() {
 $('#customerIdSelector').on('focus', function() {
     loadCustomers();
 })
-$('#itemIdSelector').on('click', function() {
+$('#itemIdSelector').on('focus', function() {
     loadItems();
 })
 async function loadCustomers() {
@@ -41,41 +41,44 @@ async function loadItems() {
     let data = fetchedData.data;
     if(Array.isArray(data)){
         data.forEach((item,index)=>{
-            $('#itemIdSelector').append('<option value="'+item.id+'">'+item.name+'</option>')
+            $('#itemIdSelector').append('<option value="'+item.name+'">'+item.name+'</option>')
         });
     }
 }
-    function updateCustomerInfo() {
+    async function updateCustomerInfo() {
         var selectedCustomerId = $('#customerIdSelector').val();
-        var selectedCustomer=null;
-        try{
-            selectedCustomer = customerArr.find(s => s.cusId === selectedCustomerId);
-        }catch (error){
-            console.log("fetching User Details Failed..",error)
+        let option={
+            method:"GET"
         }
-        if(selectedCustomer) {
-            $('#selectedCustomerIdPlaceOrder').val(selectedCustomer.cusId);
-            $('#selectedCustomerNamePlaceOrder').val(selectedCustomer.cusName);
-            $('#selectedCustomerAddressPlaceOrder').val(selectedCustomer.cusAddress);
-            $('#order-tbl-tbody').empty();
-            cartItemsArr = [];
-            totalPrice = 0;
-            $('#totalPrice').text("Total :");
+        let response = await fetch("http://localhost:8083/customer/"+selectedCustomerId,option);
+        let fetchedData = await response.json();
+        let data = fetchedData.data;
+        if(Array.isArray(data)){
+            data.forEach((customer,index)=>{
+                $('#selectedCustomerIdPlaceOrder').val(customer.email);
+                $('#selectedCustomerNamePlaceOrder').val(customer.name);
+                $('#selectedCustomerAddressPlaceOrder').val(customer.address);
+                totalPrice = 0;
+                $('#totalPrice').text("Total :");
+            });
         }
     }
-    function updateItemInfo() {
+    async function updateItemInfo() {
         var selectedItemId = $('#itemIdSelector').val();
-        var selectedItem=null;
-        try{
-            selectedItem = itemArr.find(s => s.itemId === selectedItemId);
-        }catch (error){
-            console.log("fetching Item Details Failed..",error)
+        console.log(selectedItemId)
+        let option={
+            method:"GET"
         }
-        if(selectedItem) {
-            $('#itemCode').val(selectedItem.itemId);
-            $('#itemName').val(selectedItem.itemName);
-            $('#itemPrice').val(selectedItem.itemPrice);
-            $('#itemQty').val(selectedItem.qtyOnHand);
+        let response =await fetch("http://localhost:8083/items/"+selectedItemId,option);
+        let fetchedData = await response.json();
+        let data = fetchedData.data;
+        if(Array.isArray(data)){
+            data.forEach((item,index)=>{
+                $('#itemCode').val(item.propertyId);
+                $('#itemName').val(item.name);
+                $('#itemPrice').val(item.price);
+                $('#itemQty').val(item.qty);
+            });
         }
     }
 
