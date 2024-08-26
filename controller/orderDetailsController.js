@@ -3,9 +3,8 @@ import{orderArr} from "../db/db.js";
 let searchedOrdersArr=[];
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Your code here
-    $('#order-details-tbl-tbody').empty();
-    orderArr.map((order, index) => {
+    loadTableData();
+    /*orderArr.map((order, index) => {
         var row = `<tr>
             <td id="order-id-tbl">${order.orderId}</td>
             <td id="order-cus-id-tbl">${order.customerId}</td>
@@ -16,8 +15,35 @@ document.addEventListener("DOMContentLoaded", function() {
             <td id="order-balance-amount-tbl">${order.balance}</td>
         </tr>`;
         $('#order-details-tbl-tbody').append(row);
-    })
+    })*/
 });
+async function loadTableData(){
+    console.log("Load Table Called...")
+    $('#order-details-tbody').empty();
+    let option={
+        method:"GET"
+    }
+    let response = await fetch("http://localhost:8083/orders",option);
+    let fetchedData = await response.json();
+    let orders = fetchedData.data;
+
+    if (Array.isArray(orders)) {
+        orders.forEach((order, index) => {
+            var row = `<tr>
+                <td id="order-id-tbl">${order.orderId}</td>
+                <td id="order-cus-id-tbl">${order.customerId}</td>
+                <td id="order-date-tbl">${order.orderDate}</td>
+                <td id="order-total-amount-tbl">${order.paid}</td>
+                <td id="order-cash-amount-tbl">${order.paid}</td>
+                <td id="order-discount-amount-tbl">${order.discount}</td>
+                <td id="order-balance-amount-tbl">${order.balance}</td>
+            </tr>`;
+            $('#order-details-tbl-tbody').append(row);
+        });
+    } else {
+        console.error("Retrieved data is not an array");
+    }
+}
 function loadSearchedOrdersToTable(){
     $('#order-details-tbody').empty();
     searchedOrdersArr.map((order, index) => {

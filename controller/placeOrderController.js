@@ -203,6 +203,7 @@ function clearAllFields() {
     $('#itemQty').val("");
     $('#customerPayingAmount').val("");
     $('#discount').val("");
+    $('#order-tbl-tbody').empty();
 }
 
 $('#discount').on('click', () => {
