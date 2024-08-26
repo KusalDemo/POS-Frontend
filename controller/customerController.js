@@ -122,13 +122,14 @@ $('#btnSaveCustomer').on('click', () => {
         })
         .then(response => {
             if (response.status === 201) {
+                $('#customer-tbl-tbody').empty();
+                loadTableData()
                 Swal.fire({
                     title: "Done",
                     text: response.message,
                     icon: "success"
                 });
                 console.log("Message is : ", response.message)
-                loadTableData();
             } else if (response.status === 400) {
                 Swal.fire({
                     title: "OOPS..!",

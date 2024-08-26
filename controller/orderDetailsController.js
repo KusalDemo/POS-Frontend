@@ -2,8 +2,6 @@ import{orderArr} from "../db/db.js";
 
 let searchedOrdersArr=[];
 
-
-
 document.addEventListener("DOMContentLoaded", function() {
     // Your code here
     $('#order-details-tbl-tbody').empty();
