@@ -1,6 +1,9 @@
 var selectedItemPropertyId;
 const itemNameRegex = /^[0-9A-Za-z]{3,15}$/;
 
+$(document).ready(function () {
+    loadTableData();
+})
 async function loadTableData() {
     $('#item-tbl-tbody').empty();
     let option = {
@@ -21,6 +24,11 @@ async function loadTableData() {
                     <td id="item-qty-tbl">${item.qty}</td>
                 </tr>`;
                 $('#item-tbl-tbody').append(row);
+            });
+            $('#item-tbl').DataTable({
+                "paging": true,
+                "pageLength": 10,
+                "destroy": true
             });
         } else {
             console.error("Retrieved data is not an array");

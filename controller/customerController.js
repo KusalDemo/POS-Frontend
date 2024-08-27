@@ -4,6 +4,9 @@ var selectedEmail;
 const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const userNameRegex = /^[0-9A-Za-z]{6,16}$/;
 const addressRegex = /^[a-zA-Z0-9\s,'-]*$/
+$(document).ready(function () {
+    loadTableData();
+})
 async function loadTableData() {
     $('#customer-tbl-tbody').empty();
     const option = {

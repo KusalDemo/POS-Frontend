@@ -9,13 +9,14 @@ async function loadTableData(){
     let option={
         method:"GET"
     }
-    let response = await fetch("http://localhost:8083/orders",option);
-    let fetchedData = await response.json();
-    let orders = fetchedData.data;
+    try{
+        let response = await fetch("http://localhost:8083/orders",option);
+        let fetchedData = await response.json();
+        let orders = fetchedData.data;
 
-    if (Array.isArray(orders)) {
-        orders.forEach((order, index) => {
-            var row = `<tr>
+        if (Array.isArray(orders)) {
+            orders.forEach((order, index) => {
+                var row = `<tr>
                 <td id="order-id-tbl">${order.orderId}</td>
                 <td id="order-cus-id-tbl">${order.customerId}</td>
                 <td id="order-date-tbl">${order.orderDate}</td>
@@ -24,11 +25,20 @@ async function loadTableData(){
                 <td id="order-discount-amount-tbl">${order.discount}</td>
                 <td id="order-balance-amount-tbl">${order.balance}</td>
             </tr>`;
-            $('#order-details-tbl-tbody').append(row);
-        });
-    } else {
-        console.error("Retrieved data is not an array");
+                $('#order-details-tbl-tbody').append(row);
+            });
+            $('#order-tbl').DataTable({
+                "paging": true,
+                "pageLength": 10,
+                "destroy": true
+            });
+        } else {
+            console.error("Retrieved data is not an array");
+        }
+    }catch (error) {
+        console.log(error);
     }
+
 }
 async function loadSelectedOrderDetails(id){
     let option={
