@@ -257,7 +257,7 @@ $('#btnConfirmDeleteItem').on('click', () => {
             }))
         })
         .then(response=>{
-            if(response.status===201){
+            if(response.status===204){
                 $('#delete-item-modal').modal('hide');
                 loadTableData();
                 Swal.fire({
@@ -265,7 +265,7 @@ $('#btnConfirmDeleteItem').on('click', () => {
                     text: response.message,
                     icon: "success"
                 });
-            }else if(response.status===400){
+            }else if(response.status===401){
                 Swal.fire({
                     title: "OOPS..!",
                     text: response.message,

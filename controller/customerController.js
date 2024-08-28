@@ -223,7 +223,7 @@ $('#btnUpdateCustomerModal').on('click', () => {
             }));
         })
         .then(response => {
-            if (response.status === 201) {
+            if (response.status === 200) {
                 loadTableData();
                 $('#btnCloseUpdateCustomerModal').click();
                 Swal.fire({
@@ -255,7 +255,7 @@ $('#btnConfirmDeleteCustomer').on('click', () => {
             return response.json();
         })
         .then(response => {
-            if (response.status === 201) {
+            if (response.status === 204) {
                 loadTableData();
                 $('#btnCloseDeleteCustomerModal').click();
                 Swal.fire({
@@ -263,7 +263,7 @@ $('#btnConfirmDeleteCustomer').on('click', () => {
                     text: "Selected Customer has been deleted...",
                     icon: "success"
                 });
-            } else if (response.status === 400) {
+            } else if (response.status === 401) {
                 Swal.fire({
                     title: "OOPS..!",
                     text: response.message,
