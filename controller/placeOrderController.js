@@ -103,7 +103,6 @@ function loadCartItems() {
             <td id="total-tbl">${item.total}</td>
             <td>
                 <button class="btn btn-danger cart-remove" data-id="${item.itemId}">Remove</button>
-               <!-- <button class="btn btn-secondary reduce-amount" data-bs-toggle="modal"  data-bs-target="#order-items-modal">Reduce Qty</button>-->
             </td>
         </tr>`;
         $('#order-tbl-tbody').append(row);
@@ -164,10 +163,6 @@ $('#btnAddToCart').on('click', (e) => {
                 total: totalForCurrentItem
             });
         }
-        /*let indexOfItem = itemArr.find(s => s.itemId === $('#itemCode').val());
-        console.log("Index of Item : ",indexOfItem)
-        indexOfItem.qtyOnHand-=parseInt($('#orderQty').val());*/
-
         clearItemFields();
     } catch (error) {
         Swal.fire({
@@ -217,7 +212,6 @@ $('#discount').on('click', () => {
                 text: "Invalid Amount, Check and Try Again",
                 icon: "warning"
             });
-            /*alert("Invalid Amount, Check and Try Again");*/
             return;
         }
         subTotalPrice = totalPrice / 100 * (100 - discountPercentage);
@@ -249,13 +243,17 @@ $('#btnPlaceOrder').on('click', () => {
         });
         return;
     }
-
     $('#place-order-modal').modal('show');
     $('#orderCustomerNameSpan').text($('#selectedCustomerNamePlaceOrder').val());
     $('#orderItemCountSpan').text(cartItemsArr.length);
     $('#totalAmountSpan').text("Rs." + totalPrice);
     $('#cashAmountSpan').text("Rs." + $('#customerPayingAmount').val());
-    var discountPercentage = Math.min(100, Math.max(0, parseInt($('#discount').val())))
+    let discountPercentage = Math.min(100, Math.max(0, parseInt($('#discount').val())))
+    if($('#discount').val()===""){
+        discountPercentage = 0;
+        subTotalPrice = totalPrice;
+        balance = $('#customerPayingAmount').val()-subTotalPrice;
+    }
     $('#discountPercentageSpan').text(discountPercentage + "%");
     $('#balanceAmountSpan').text("Rs." + balance);
     $('#subTotalAmountSpan').text("Rs." + subTotalPrice);
@@ -315,7 +313,6 @@ $('#btnConfirmPlaceOrder').on('click', () => {
             }
         })
 });
-
 function getTodayDate() {
     var now = new Date();
     var dd = String(now.getDate()).padStart(2, '0');

@@ -168,6 +168,7 @@ $('#btnUpdateItemModal').on('click', () => {
     let updatedItemPrice = $('#updateItemPriceField').val();
     let updatedItemQty = $('#updateItemQtyField').val();
 
+
     if (!updatedItemCode || !updatedItemName || !updatedItemDescription || !updatedItemPrice || !updatedItemQty) {
         Swal.fire({
             title: "OOPS..!",

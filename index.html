@@ -42,69 +42,10 @@
                             <span class="nav-link" id="nav-order-details">Order Details</span>
                         </li>
                     </ul>
-                    <!--<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"  data-bs-target="#logout-modal" id="btnLogout">LogOut</button>-->
                 </div>
             </div>
         </nav>
     </header>
-    <!--Login Section-->
-    <!--<section id="login-section">
-        <div class="card login-card">
-            <img src="assets/images/supermarket-temp.jpg" class="card-img-top" alt="..." >
-            <div class="card-body">
-                <h5 class="card-title">Lets Get Started</h5>
-                <p class="card-text">welcome to Posware. Lets login or register</p><br>
-                <form>
-                    <div class="mb-3">
-                        <label for="inputID" class="form-label">Your ID</label>
-                        <input type="text" class="form-control" id="inputID" aria-describedby="emailHelp">
-                        <div class="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="InputLoginPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="InputLoginPassword">
-                    </div>
-                    <button type="button" class="btn btn-primary" id="btnLogin">Login</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btn-new-account">Create New Account</button>
-                </form>
-            </div>
-        </div>
-    </section>-->
-    <!--Signup Section-->
-   <!-- <section id="signup-section">
-        <div class="card login-card">
-            <img src="assets/images/supermarket-temp.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Lets Get Started</h5>
-                <p class="card-text">welcome to Posware. Lets login or register</p><br>
-                <form>
-                    <div class="mb-3">
-                        <label for="InputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp">
-                        <div class="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="userName" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="userName">
-                    </div>
-                    <div class="mb-3">
-                        <label for="InputPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="InputPassword">
-                    </div>
-                    <div class="mb-3">
-                        <label for="InputRePassword" class="form-label">RePassword</label>
-                        <input type="password" class="form-control" id="InputRePassword">
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Already have an account</button>
-                </form>
-            </div>
-        </div>
-    </section>-->
     <!--Main Section-->
     <section id="main-section">
         <!-- Status of customers,items & Orders-->
@@ -154,48 +95,33 @@
                 <!-- Search Customer div-->
                 <div class="card searchCustomerCard">
                     <div class="card-header" id="searchCustomerCardTitle">
-                        Search Customer
+                        Management
                     </div>
                     <div class="card-body">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"> 🔍 </span>
-                            <input type="text" id="searchCustomerReference" class="form-control" placeholder="Let's search.." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div>
+                            <button type="button" class="btn btn-success"  data-bs-toggle="modal"  data-bs-target="#save-user-modal" id="btnNewCustomer"><i class="fa-solid fa-plus"></i> New Customer</button>
+                            <button type="button" class="btn btn-warning" id="btnViewAllCustomers"><i class="fa-solid fa-reply-all"></i> View All Customers</button>
                         </div>
-                        <div class="searchBtnDiv">
-                            <select class="form-select form-select-sm" id="cmbSearchByCustomer" aria-label="Small select example">
-                                <option selected value="3">Search By Name (default)</option>
-                                <option value="1">Id</option>
-                                <option value="2">Email</option>
-                            </select>
-                            <div class="searchButtons">
-                                <a href="#" type="button" class="btn btn-success" id="btnSearchCustomer"><i class="fa-solid fa-magnifying-glass"></i> Search</a>&nbsp
-                                <button type="reset" class="btn btn-secondary" id="btnClearCustomerFields"><i class="fa-solid fa-broom"></i> Clear</button>
-                            </div>
+                        <div class="crudBtn">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#update-user-modal" id="btnUpdateCustomer">Update</button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"  data-bs-target="#delete-user-modal" id="btnDeleteCustomer">Delete</button>
                         </div>
+                        <!-- Table-->
+                        <table class="table table-striped table-bordered table-hover" id="customer-tbl">
+                            <thead>
+                            <tr class="table-info">
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Branch</th>
+                            </tr>
+                            </thead>
+                            <tbody id="customer-tbl-tbody">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <!--Buttons for customer add and view-->
-                <div class="crudBtn">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#update-user-modal" id="btnUpdateCustomer">Update</button>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"  data-bs-target="#delete-user-modal" id="btnDeleteCustomer">Delete</button>
-                </div>
-                <div class="btn-group saveViewBtns" role="group" aria-label="Basic mixed styles example">
-                    <button type="button" class="btn btn-success"  data-bs-toggle="modal"  data-bs-target="#save-user-modal" id="btnNewCustomer"><i class="fa-solid fa-plus"></i> New Customer</button>
-                    <button type="button" class="btn btn-warning" id="btnViewAllCustomers"><i class="fa-solid fa-reply-all"></i> View All Customers</button>
-                </div>
-                <!-- Table-->
-                <table class="table table-striped table-bordered table-hover" id="customer-tbl">
-                    <thead>
-                    <tr class="table-info">
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Branch</th>
-                    </tr>
-                    </thead>
-                    <tbody id="customer-tbl-tbody">
-                    </tbody>
-                </table>
+
             </div>
         </div>
     </section>
@@ -213,48 +139,39 @@
                 <!-- Search Item div-->
                 <div class="card searchItemCard">
                     <div class="card-header" id="searchItemCardTitle">
-                        Search an Item
+                        Management
                     </div>
                     <div class="card-body">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"> 🔍 </span>
-                            <input type="text" class="form-control" id="txtSearchedValue" placeholder="Input Item Name/Code here" aria-label="Recipient's itemname" aria-describedby="basic-addon2">
-                        </div>
-                        <div class="searchBtnDiv">&nbsp;&nbsp;
-                            <select class="form-select form-select-sm" id="cmbSearchByItem" aria-label="Small select example">
-                                <option selected value="1">Search By Name (default)</option>
-                                <option value="2">Item Code</option>
-                            </select>
                             <div class="searchButtons">
-                                <a href="#" class="btn btn-success" id="btnSearchItem"><i class="fa-solid fa-magnifying-glass"></i> Search</a>&nbsp;&nbsp;
-                                <button type="button" class="btn btn-secondary" id="btnClearItemFields"><i class="fa-solid fa-broom"></i> Clear</button>
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"  data-bs-target="#save-item-modal"><i class="fa-solid fa-plus"></i> New Item</button>
+                                <button type="button" class="btn btn-warning" id="btnViewAllItems"><i class="fa-solid fa-reply-all"></i> View All Items</button>
                             </div>
+                        <!--Buttons for Item add and view-->
+                        <div class="crudBtn">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#update-item-modal" id="btnUpdateItem">Update</button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"  data-bs-target="#delete-item-modal" id="btnDeleteItem">Delete</button>
+                        </div>
+                        <div class="btn-group saveViewBtns" role="group" aria-label="Basic mixed styles example">
+
+                        </div>
+                        <!-- Table-->
+                        <table class="table table-striped table-bordered table-hover" id="item-tbl">
+                            <thead>
+                            <tr class="table-info">
+                                <th scope="col">Item Code</th>
+                                <th scope="col">Item Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Qty</th>
+                            </tr>
+                            </thead>
+                            <tbody id="item-tbl-tbody">
+                            </tbody>
+                        </table>
                         </div>
                     </div>
                 </div>
-                <!--Buttons for Item add and view-->
-                <div class="crudBtn">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#update-item-modal" id="btnUpdateItem">Update</button>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"  data-bs-target="#delete-item-modal" id="btnDeleteItem">Delete</button>
-                </div>
-                <div class="btn-group saveViewBtns" role="group" aria-label="Basic mixed styles example">
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal"  data-bs-target="#save-item-modal"><i class="fa-solid fa-plus"></i> New Item</button>
-                    <button type="button" class="btn btn-warning" id="btnViewAllItems"><i class="fa-solid fa-reply-all"></i> View All Items</button>
-                </div>
-                <!-- Table-->
-                <table class="table table-striped table-bordered table-hover" id="item-tbl">
-                    <thead>
-                    <tr class="table-info">
-                        <th scope="col">Item Code</th>
-                        <th scope="col">Item Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Qty</th>
-                    </tr>
-                    </thead>
-                    <tbody id="item-tbl-tbody">
-                    </tbody>
-                </table>
+
             </div>
         </div>
     </section>
@@ -357,21 +274,31 @@
                         </div>
                     </div>
                 </div>
-                <!-- Order details table-->
-                <table class="table table-bordered table-hover">
-                    <thead>
-                    <tr class="table-info">
-                        <th scope="col">Item Code</th>
-                        <th scope="col">Item Name</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody id="order-tbl-tbody">
-                    </tbody>
-                </table>
+        <div class="card-body management-card">
+            <div class="card searchItemCard">
+                <div class="card-header">
+                    🛒 Cart Items
+                </div>
+                <div class="card-body">
+                    <!-- Order details table-->
+                    <table class="table table-bordered table-hover" id="cartItemTbl">
+                        <thead>
+                        <tr class="table-info">
+                            <th scope="col">Item Code</th>
+                            <th scope="col">Item Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="order-tbl-tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
     </section>
     <!--OrderDetails Section-->
     <section id="order-details-section">
@@ -390,74 +317,48 @@
                         Get Details about the Order
                     </div>
                     <div class="card-body">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"> 🔍 </span>
-                            <input type="text" class="form-control" placeholder="Input ID here" aria-label="Recipient's itemname" aria-describedby="basic-addon2" id="searchOrderReference">
-                        </div>
-                        <div id="searchBtnDiv">
-                            <select class="form-select form-select-sm" id="cmbOrderSearchBy" aria-label="Small select example">
-                                <option selected value="1">Order ID</option>
-                                <option value="2">Customer ID</option>
-                                <option value="3">By Date</option>
-                            </select>
-                            <a href="#" class="btn btn-success" id="btnSearchOrderReference" style="margin-left: 5px"><i class="fa-solid fa-magnifying-glass"></i> Search</a>&nbsp;&nbsp;
-                            <a href="#" class="btn btn-secondary" id="btnClearOrderReference"><i class="fa-solid fa-broom"></i> Clear</a>&nbsp;&nbsp;
-                        </div>
+                        <!-- Table-->
+                        <table class="table table-striped table-bordered table-hover" id="order-tbl">
+                            <thead>
+                            <tr class="table-info">
+                                <th scope="col">Order ID</th>
+                                <th scope="col">Cus ID</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Paid</th>
+                                <th scope="col">%</th>
+                                <th scope="col">Balance</th>
+                            </tr>
+                            </thead>
+                            <tbody id="order-details-tbl-tbody">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <!-- Table-->
-                <table class="table table-striped table-bordered table-hover" id="order-tbl">
-                    <thead>
-                    <tr class="table-info">
-                        <th scope="col">Order ID</th>
-                        <th scope="col">Cus ID</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Paid</th>
-                        <th scope="col">%</th>
-                        <th scope="col">Balance</th>
-                    </tr>
-                    </thead>
-                    <tbody id="order-details-tbl-tbody">
-                    </tbody>
-                </table>
-                <p>⬇️ Selected Order Details</p>
-                <!-- Table-->
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                    <tr class="table-info">
-                        <th scope="col">Item ID</th>
-                        <th scope="col">Item Price</th>
-                        <th scope="col">Qty</th>
-                        <th scope="col">Total</th>
-                    </tr>
-                    </thead>
-                    <tbody id="order-details-items-tbl-tbody">
-                    </tbody>
-                </table>
+                <div class="card searchOrderCard">
+                    <div class="card-header" id="selectedOrderItemsCart">
+                        ⬇️ Selected Order Details
+                    </div>
+                    <div class="card-body">
+                        <!-- Table-->
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr class="table-info">
+                                <th scope="col">Item ID</th>
+                                <th scope="col">Item Price</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody id="order-details-items-tbl-tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-
     <!--Modals-->
-    <!--Logout Modal-->
-    <!--<div class="modal" tabindex="-1" id="logout-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">❓ Logout</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to logout ? Your unsaved changes will be lost.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i> Close</button>
-                    <button type="button" class="btn btn-danger" id="btnConfirmLogout">Logout Anyway</button>
-                </div>
-            </div>
-        </div>
-    </div>-->
     <!--modal for save customer-->
     <div class="modal" tabindex="-1" id="save-user-modal">
         <div class="modal-dialog">
@@ -764,7 +665,6 @@
     <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.1.4/js/dataTables.bootstrap5.js"></script>
     <script src="https://kit.fontawesome.com/1eef1792c9.js" crossorigin="anonymous"></script>
-    <script type="module" src="controller/loginController.js"></script>
     <script type="module" src="controller/homeController.js"></script>
     <script type="module" src="controller/customerController.js"></script>
     <script type="module" src="controller/itemController.js"></script>
