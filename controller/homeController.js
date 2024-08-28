@@ -1,13 +1,6 @@
-import {customerArr, itemArr, orderArr} from "../db/db.js";
 
-function updateTotals() {
-    $('#total-customers').text(customerArr.length);
-    $('#total-items').text(itemArr.length);
-    $('#total-orders').text(orderArr.length);
-}
-
-setInterval(updateTotals, 500);
-
+/*setInterval(loadDetails, 500);*/
+loadDetails();
 
 new Chart(document.getElementById("line-chart"), {
     type: 'line',
@@ -37,3 +30,32 @@ new Chart(document.getElementById("line-chart"), {
         }
     }
 });
+
+async function loadDetails() {
+    let option = {
+        method: "GET"
+    }
+    let response = await fetch("http://localhost:8083/customer", option);
+    let fetchedData = await response.json();
+    let data = fetchedData.data;
+    if (Array.isArray(data)) {
+        let lengthOfCustomers = data.length;
+        $('#total-customers').text(lengthOfCustomers+" +");
+    }
+
+    response = await fetch("http://localhost:8083/items", option);
+    fetchedData = await response.json();
+    data = fetchedData.data;
+    if (Array.isArray(data)) {
+        let lengthOfItems = data.length;
+        $('#total-items').text(lengthOfItems+" +");
+    }
+
+    response = await fetch("http://localhost:8083/orders", option);
+    fetchedData = await response.json();
+    data = fetchedData.data;
+    if (Array.isArray(data)) {
+        let lengthOfOrders = data.length;
+        $('#total-orders').text(lengthOfOrders+" +");
+    }
+}
